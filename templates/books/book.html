@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body%}
+
+
+<div class="container-fluid">
+	<br>
+<div class="container-fluid lib">
+{% include 'partial/messages.html' %}
+<button onclick="Show_form()" id='s_btn'>Search</button>
+
+<form id='form' method="GET" style="display:none;" >
+	{{filter.form }}
+	
+	<input type="submit" name="search">
+</form>
+<button onclick="hide_form()" id='h_btn'style="display:none;">Hide</button>
+
+{% if filter.qs %}
+<br>
+<table >
+		<tr>
+			<th>CoverImage</th>
+			<th>Name</th>
+			<th>Author</th>
+			<th>Published By</th>
+			<th>Edition</th>
+			<th>Level</th>
+			<th>Faculty</th>
+			<th>Program</th>
+			<th>Sem/Year</th>
+			{% if  user.is_authenticated %}
+			<th>Remarks</th>
+			{%endif%}
+		</tr>
+		
+		
+		
+			{%for b in filter.qs %}
+			<tr>
+				<td><img src="{{b.cover_pic.url}}" alt="Image"style="width:20px;"></td>
+				<td><a href="{% url 'book_detail' b.id%}">{{b.book_name}}</a></td>
+				<td>{{b.author}}</td>
+				<td>{{b.published_By}}</td>
+				<td>{{b.edition}}</td>
+				<td>{{b.level}}</td>
+				<td>{{b.faculty}}</td>
+				<td>{{b.program}}</td>
+				<td>{{b.sem}}</td>
+				
+				{%if user.is_authenticated%}
+				<td><a href="{% url 'edit_book' b.id %}">Edit</a>/<a href="{% url 'delete_book' b.id %}">Delete</a></td>
+				{%endif%}
+			</td>
+			{% endfor %}
+
+		
+			
+		
+	</table>
+
+{% else %}
+			<p>No record Found. Please Try Next</p>
+		{%endif%}
+<br>
+{%if user.is_authenticated%}
+<a href="{% url 'create_book' %}">Create New Book</a>
+{%endif%}
+<br> 
+
+<script type="text/javascript">
+	function Show_form(){
+		document.getElementById('form').style.display="block";
+		document.getElementById('s_btn').style.display="none";
+		document.getElementById('h_btn').style.display="block";
+
+
+	}
+	function hide_form() {
+		document.getElementById('form').style.display="none";
+		document.getElementById('h_btn').style.display="none";
+		document.getElementById('s_btn').style.display="block";
+	}
+</script>	
+
+
+</div>
+{% endblock body%}

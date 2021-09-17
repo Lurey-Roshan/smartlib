@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block body%}
+{% include 'partial/messages.html' %}
+
+<div class="container-fluid" style="justify-self: center;">
+	<p style="align-items: center;">
+		<img src="{{book.cover_pic.url}}" style="width:100px" alt="{{book.book_name}}image">
+			<ul>
+				<p>Name: {{book.book_name}}</p>
+				<p>Published By: {{book.published_By}}</p>
+				<p>Edition: {{book.edition}}</p>
+				<p>Authors: {{book.author}}</p>
+				<p>Sem/Year: {{book.sem.name}}</p>
+				<p>Faculty: {{book.faculty.name}}</p>
+				<p>Level: {{book.level.name}}</p>
+			</ul>
+		
+		
+		
+		
+		<a href="{% url 'edit_book'  book.id %}">Edit</a>
+		<a href="{% url 'delete_book'  book.id %}">Delete</a>
+	</p>
+
+</div>
+
+
+{%endblock body%}

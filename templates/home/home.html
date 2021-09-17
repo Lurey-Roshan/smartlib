@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+{%load static %}
+{% block body%}
+<h1>Welcome to Our ELibrary</h1>
+
+<div class="container-fluid">
+	
+	<div class="card" style="width: 100%;">
+	  <img src="{% static 'images/logo.png.url' %}" class="card-img-top" alt="..." style="height: 500px;width: 500px;	align-items: center;">
+	  <div class="card-body">
+	    <h5 class="card-title"style="color:BLUE;text-decoration:underline">About Us</h5>
+	    <p class="card-text">{{aboutus.text}}</p>
+	    
+	  </div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<h4 style="color:BLUE;text-decoration:underline">Message From Chief</h4>
+	<div class="card" style="width: 100%;">
+	  <img src="{{message.image.url}}" class="card-img-top" alt="..." style="width:50%;	align-content: center;margin: auto;">
+	  <div class="card-body">
+	    <h5 class="card-title">{{message.name}}</h5>
+	    <p class="card-text">{{message.text}}</p>
+	    
+	  </div>
+	</div>
+</div>
+<br>
+<h5 style="color:BLUE;text-decoration:underline">Mission</h5>
+<div class="container-fluid">
+	<div class="card" style="width: 100%;">
+	  <div class="card-body">
+	    
+	    <p class="card-text">{{mission.mission}}</p>
+	    
+	  </div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<h4 style="color:BLUE;text-decoration:underline ;">Programs</h4>
+	{% if program %}
+		{% for p in program %}
+			<div class="card" style="width: 100%;">
+			  <img src="{{p.image.url}}" class="card-img-top" alt="..." style="width:50%;	align-content: center;margin: auto;">
+			  <div class="card-body">
+			    <h5 class="card-title">{{p.name}}</h5>
+			    <p class="card-text">{{p.text}}</p>
+			    
+			  </div>
+			</div>
+		{% endfor %}
+	{%else%}
+		<h4 style="color: mediumpurple;">No Programs Available</h4>
+	{%endif%}
+
+</div>
+
+{% endblock body %}

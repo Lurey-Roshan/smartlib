@@ -1,0 +1,14 @@
+{%extends 'base.html' %}
+{% include 'partial/messages.html' %}
+
+{% block body%}
+<p>Please Select all the Parameters and Enter Semester/Year</p>
+{% if form %}
+<form action="" method="POST">
+	{{form.as_p}}
+	{%csrf_token%}
+	<input type="submit" name="Create">
+</form>
+{% endif %}
+
+{% endblock body%}

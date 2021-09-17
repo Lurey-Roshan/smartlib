@@ -1,0 +1,11 @@
+.lib{
+	background-image: url("images/library.jpg");
+	width: 100%;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    align-content: center;
+    text-align: center;
+}

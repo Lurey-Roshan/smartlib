@@ -1,0 +1,11 @@
+{%extends 'base.html' %}
+
+{% block body%}
+<p>Edit Book Detail</p>
+<form method="POST">
+	{{form.as_p}}	
+	{% csrf_token%}
+	<input type="submit" class="ui button primary" value="Update">
+</form>
+{% endblock body%}
+

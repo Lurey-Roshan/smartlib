@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}  
+
+{% include 'partial/messages.html' %}
+<p>Please Select the options and enter other details as per requirement. </p>
+<div class="container-fluid">
+	{% if form %}
+<form action="" method="POST" enctype="multipart/form-data">
+	{{form.as_p}}
+	{%csrf_token%}
+	<input type="submit" name="submit">
+</form>
+{% endif %}
+</div>
+
+{% endblock body%}

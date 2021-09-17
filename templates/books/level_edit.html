@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block body%}
+<p><strong>Please make Sure Everything is Correct</strong></p>
+<form method="POST">
+	{{form.as_p}}
+	{% csrf_token%}
+	<input type="submit" name="edit" name="Update">
+</form>
+{% endblock body%}
+
