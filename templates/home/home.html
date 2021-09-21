@@ -1,6 +1,6 @@
 
 {% extends 'base.html' %}
-{%load static %}
+{% load static %}
 {% block body%}
 <h1>Welcome to Our ELibrary</h1>
 
@@ -17,9 +17,9 @@
 </div>
 
 <div class="container-fluid">
-	<h4 style="color:BLUE;text-decoration:underline">Message From Chief</h4>
+	<h5 style="color:BLUE;text-decoration:underline">Message From Chief</h5>
 	<div class="card" style="width: 100%;">
-	  <img src="{{message.image.url}}" class="card-img-top" alt="..." style="width:50%;	align-content: center;margin: auto;">
+	  <img src="{{message.image.url}}" class="card-img-top" alt="..." style="width:20%; float:right ;	align-content: center;margin: auto;">
 	  <div class="card-body">
 	    <h5 class="card-title">{{message.name}}</h5>
 	    <p class="card-text">{{message.text}}</p>
@@ -28,8 +28,9 @@
 	</div>
 </div>
 <br>
-<h5 style="color:BLUE;text-decoration:underline">Mission</h5>
+
 <div class="container-fluid">
+	<h5 style="color:BLUE;text-decoration:underline">Mission</h5>
 	<div class="card" style="width: 100%;">
 	  <div class="card-body">
 	    
@@ -44,7 +45,7 @@
 	{% if program %}
 		{% for p in program %}
 			<div class="card" style="width: 100%;">
-			  <img src="{{p.image.url}}" class="card-img-top" alt="..." style="width:50%;	align-content: center;margin: auto;">
+			  <img src="{{p.image.url}}" class="card-img-top" alt="..." style="width:20%; float: center;	align-content: center;margin: auto;">
 			  <div class="card-body">
 			    <h5 class="card-title">{{p.name}}</h5>
 			    <p class="card-text">{{p.text}}</p>

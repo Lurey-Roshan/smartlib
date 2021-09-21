@@ -5,7 +5,7 @@
 
 <div class="container-fluid">
 	<br>
-<div class="container-fluid lib">
+<div class="container-fluid ">
 {% include 'partial/messages.html' %}
 <button onclick="Show_form()" id='s_btn'>Search</button>
 
@@ -49,7 +49,9 @@
 				<td>{{b.sem}}</td>
 				
 				{%if user.is_authenticated%}
+				{%if user.is_administrator%}
 				<td><a href="{% url 'edit_book' b.id %}">Edit</a>/<a href="{% url 'delete_book' b.id %}">Delete</a></td>
+				{%endif%}
 				{%endif%}
 			</td>
 			{% endfor %}
@@ -64,7 +66,9 @@
 		{%endif%}
 <br>
 {%if user.is_authenticated%}
+{%if user.is_administrator%}
 <a href="{% url 'create_book' %}">Create New Book</a>
+{%endif%}
 {%endif%}
 <br> 
 

@@ -83,13 +83,13 @@ span.psw {
 </head>
 <body>
 	{% load static %}
-	{% include 'partial/messages.html' %}
-
+	
 	{% if user.is_authenticated %}
 	<p>You are not authorized to login</p>
 
 
 	{% else %}
+  
 	<form  method="POST">
 		
   <div class="imgcontainer">

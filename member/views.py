@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from validate_email import validate_email
+from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -18,6 +19,7 @@ def register(request):
 		username=request.POST.get('username')
 		password=request.POST.get('password')
 		password2=request.POST.get('password2')
+		
 
 
 		'''if len(password)<6:
@@ -84,3 +86,19 @@ def login_user(request):
 		return redirect(reverse('home'))
 	return render(request,'member/login.html')
 
+
+@login_required(login_url='/member/login/')
+def users(request):
+	users=User.objects.filter(is_student=True)
+	context={
+		'users':users
+	}
+	return render(request,'member/user.html', context)
+
+
+@login_required(login_url='/member/login/')
+def user_delete(request, id):
+	user=User.objects.get(pk=id)
+	print(user)
+	user.delete()
+	return render(request, 'member/user.html')
