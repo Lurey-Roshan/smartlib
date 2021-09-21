@@ -29,7 +29,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 DEBUG = True
 
 ALLOWED_HOSTS = []
-#AUTH_USER_MODEL="authentication.User"
+AUTH_USER_MODEL="member.User"
 
 # Application definition
 
@@ -42,8 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'books',
     'home',
-    'django_filters'
-    #'member',
+    'django_filters',
+    'member',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +125,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIR=[BASE_DIR/ 'static']
+STATICFILES_DIR=[BASE_DIR/ 'static/']
 
 MEDIA_URL='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

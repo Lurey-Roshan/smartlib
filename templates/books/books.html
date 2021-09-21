@@ -33,9 +33,11 @@
 				<td>{{b.level}}</td>
 				<td>{{b.sem}}</td>
 				<td>{{b.faculty}}</td>
-				{%if user.is_authenticated%}
+				{% if user.is_authenticated%}
+				{%if user.is_administrator%}
 				<td><a href="{% url 'edit_book' b.id %}">Edit</a>/<a href="{% url 'delete_book' b.id %}">Delete</a></td>
 				{%endif%}
+				{% endif %}
 			</td>
 			{% endfor %}
 		{%endif%}
@@ -49,8 +51,10 @@
 
 <br>
 {%if user.is_authenticated%}
+{% if user.is_administrator%}
 <a href="{% url 'create_book' %}">Create New Book</a>
 {%endif%}
+{% endif %}
 <br> 
 
 <br>	

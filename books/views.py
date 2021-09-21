@@ -4,7 +4,7 @@ from django.contrib import messages
 from books. models import   Level,Faculty ,Book,Program,Semester
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from books.forms import FacultyForm, LevelForm, BookForm, SemForm, ProgramForm, EditBookForm,LevelEditForm,SearchForm
 # Create your views here.
 #new 
@@ -16,6 +16,7 @@ from books.filters import BookFilter
 def home(request ):
 	return render(request, 'home.html')
 #for book
+
 class BookListView(ListView):
 	model=Book
 	template_name='books/book.html'
@@ -29,6 +30,7 @@ def book_detail(request, id):
 	book=get_object_or_404(Book, pk=id)
 	return render(request,'books/book_detail.html', {'book':book})
 
+@login_required(login_url='/member/login/')
 def create_book(request):
 	form=BookForm()
 	if request.method== "POST":
@@ -47,6 +49,7 @@ def create_book(request):
 
 	return render(request, 'books/create_book.html',context)
 
+@login_required(login_url='/member/login/')
 def delete_book(request, id):
 	b=get_object_or_404(Book, pk=id)
 	b.delete()
@@ -54,6 +57,7 @@ def delete_book(request, id):
 	return redirect('index')
 
 
+@login_required(login_url='/member/login/')
 def edit_book(request, id):
 	book=get_object_or_404(Book, pk=id)
 	form=EditBookForm(instance=book)
@@ -78,6 +82,7 @@ def level_index(request):
 	}
 	return render(request,'books/level_index.html', context)
 
+@login_required(login_url='/member/login/')
 def edit_level(request, id):
 	lvl=get_object_or_404(Level, pk=id)
 	form=LevelEditForm(instance=lvl)
@@ -97,6 +102,7 @@ def edit_level(request, id):
 	}
 	return render(request,'books/level_edit.html', context)
 
+@login_required(login_url='/member/login/')
 def create_level(request):
 	form=LevelForm()
 	if request.method=="POST":
@@ -111,6 +117,7 @@ def create_level(request):
 	}
 	return render(request,'books/create_level.html',context)
 
+@login_required(login_url='/member/login/')
 def create_faculty(request):
 	form=FacultyForm()
 	if request.method=="POST":
@@ -127,6 +134,7 @@ def create_faculty(request):
 	return render(request,'books/create_faculty.html',context)
 
 
+@login_required(login_url='/member/login/')
 def create_program(request):
 	form=ProgramForm()
 	if request.method=="POST":
@@ -140,6 +148,7 @@ def create_program(request):
 	}
 	return render(request, 'books/create_program.html',context)
 
+@login_required(login_url='/member/login/')
 def create_sem(request):
 	form=SemForm()
 	if request.method=="POST":

@@ -15,13 +15,17 @@
 				<p>Sem/Year: {{book.sem.name}}</p>
 				<p>Faculty: {{book.faculty.name}}</p>
 				<p>Level: {{book.level.name}}</p>
+				<p><a href="{{book.file.url}}">Download</a></p>
 			</ul>
 		
 		
 		
-		
+		{% if user.is_authenticated %}
+		{% if user.is_administrator%}
 		<a href="{% url 'edit_book'  book.id %}">Edit</a>
 		<a href="{% url 'delete_book'  book.id %}">Delete</a>
+		{% endif %}
+		{% endif %}
 	</p>
 
 </div>

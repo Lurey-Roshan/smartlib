@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from home.models import About_Us, Mission,Program, Message_from_Principal
 # Create your views here.
+
 def Home_page(request):
 	aboutus=get_object_or_404(About_Us, id=1)
 	mission=get_object_or_404(Mission, id=1)

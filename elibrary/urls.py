@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('book/',include('books.urls')),
     path('',include('home.urls')),
+    path('member/', include('member.urls')),
 
 ]
 urlpatterns+= staticfiles_urlpatterns()
