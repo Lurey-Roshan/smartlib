@@ -18,7 +18,7 @@
 				<tr>
 					<td>{{u.username}}</td>
 					<td>{{u.email}}</td>
-					<td><a href="{% url 'del_user' u.id %}">{{ u.id}}Delete{{u.pk}}</a></td>
+					<td><a href="{% url 'del_user' u.id %}" onclick="myfunction()">Delete</a></td>
 				</tr>
 				{% endfor %}
 			</table>
@@ -29,6 +29,10 @@
 	{% endif %}
 {%endif %}
 </div>
-
+<script type="text/javascript">
+	function myfunction(){
+		alert("Are you sure You want to delete User?")
+	}
+</script>
 
 {% endblock body %}

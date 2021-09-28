@@ -9,16 +9,20 @@
 {% include 'partial/messages.html' %}
 <button onclick="Show_form()" id='s_btn'>Search</button>
 
-<form id='form' method="GET" style="display:none;" >
+
+
+{% if filter.qs %}
+<br>
+<form id='form' method="GET" style="display:none;
+margin-left: auto; margin-right:auto ;width: 70%;" >
 	{{filter.form }}
 	
 	<input type="submit" name="search">
 </form>
-<button onclick="hide_form()" id='h_btn'style="display:none;">Hide</button>
-
-{% if filter.qs %}
 <br>
-<table >
+<button onclick="hide_form()" id='h_btn'style="display:none;float: left;">Hide</button>
+<div class="lib">
+	<table class="u-table" >
 		<tr>
 			<th>CoverImage</th>
 			<th>Name</th>
@@ -29,7 +33,7 @@
 			<th>Faculty</th>
 			<th>Program</th>
 			<th>Sem/Year</th>
-			{% if  user.is_authenticated %}
+			{% if  user.is_administrator %}
 			<th>Remarks</th>
 			{%endif%}
 		</tr>
@@ -39,7 +43,7 @@
 			{%for b in filter.qs %}
 			<tr>
 				<td><img src="{{b.cover_pic.url}}" alt="Image"style="width:20px;"></td>
-				<td><a href="{% url 'book_detail' b.id%}">{{b.book_name}}</a></td>
+				<td><a href="{% url 'book_detail' b.id %}">{{b.book_name}}</a></td>
 				<td>{{b.author}}</td>
 				<td>{{b.published_By}}</td>
 				<td>{{b.edition}}</td>
@@ -50,7 +54,7 @@
 				
 				{%if user.is_authenticated%}
 				{%if user.is_administrator%}
-				<td><a href="{% url 'edit_book' b.id %}">Edit</a>/<a href="{% url 'delete_book' b.id %}">Delete</a></td>
+				<td><a href="{% url 'edit_book' b.id %}">Edit</a>/<a href="{% url 'delete_book' b.id %}"onclick="myfunction()">Delete</a></td>
 				{%endif%}
 				{%endif%}
 			</td>
@@ -60,6 +64,8 @@
 			
 		
 	</table>
+</div>
+
 
 {% else %}
 			<p>No record Found. Please Try Next</p>
@@ -84,6 +90,9 @@
 		document.getElementById('form').style.display="none";
 		document.getElementById('h_btn').style.display="none";
 		document.getElementById('s_btn').style.display="block";
+	}
+	function myfunction(){
+		alert("Are you sure You want to delete Book?")
 	}
 </script>	
 

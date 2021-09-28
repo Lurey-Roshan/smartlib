@@ -5,7 +5,13 @@
 <form method="POST">
 	{{form.as_p}}	
 	{% csrf_token%}
-	<input type="submit" class="ui button primary" value="Update">
+	<input type="submit" class="ui button primary" value="Update" onclick="update_book()">
 </form>
+
+<script type="text/javascript">
+	function update_book(){
+		alert("Are you sure to Update?")
+	}
+</script>
 {% endblock body%}
 

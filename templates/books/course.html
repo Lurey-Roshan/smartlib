@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body%}
+<div class="container-fluid">
+	{% include 'partial/messages.html' %}
+</div>
+<div class="container-fluid">
+	{% for l in level %}
+		{{l.name}}
+		<br>
+		{% for f in faculty %}
+			{% if f.level.name == l.name  %}
+				{{f.name}}
+				
+				{% for p in program %}
+					{% if p.faculty.name == f.name and p.level.name == l.name %}
+						{{p.prgm}}
+					{% endif %}
+					
+				{% endfor %}
+			{%endif %}
+			
+		{% endfor%}
+		<br>
+	{% endfor%}
+
+
+</div>
+
+{% endblock body %}

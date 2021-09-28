@@ -17,6 +17,9 @@
         <li class="nav-item">
           <a class="nav-link" href="{% url 'index' %}">Books</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'course' %}">Courses</a>
+        </li>
         {% if user.is_authenticated%}
         {% if user.is_administrator%}
         <li class="nav-item ">

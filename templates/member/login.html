@@ -82,6 +82,7 @@ span.psw {
 	</style>
 </head>
 <body>
+  
 	{% load static %}
 	
 	{% if user.is_authenticated %}
@@ -89,13 +90,16 @@ span.psw {
 
 
 	{% else %}
-  
+
 	<form  method="POST">
 		
   <div class="imgcontainer">
-    <img src="{% static 'images/logo.jpg' %}" alt="Avatar" class="avatar">
+    <img src="{% static 'images/logo.jpg' %}" alt="Avatar" class="avatar" style="width:15%;">
   </div>
-
+  <div  class="container">
+    <p style="background-color:blue; margin: auto;">{% include 'partial/messages.html' %}</p>
+    
+  </div>
   <div class="container">
     <label for="uname"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="username" required>

@@ -15,7 +15,7 @@
 				<p>Sem/Year: {{book.sem.name}}</p>
 				<p>Faculty: {{book.faculty.name}}</p>
 				<p>Level: {{book.level.name}}</p>
-				<p><a href="{{book.file.url}}">Download</a></p>
+				<p><a href="{{book.file.url}}">Download {{book.file.url}}</a></p>
 			</ul>
 		
 		
@@ -23,12 +23,18 @@
 		{% if user.is_authenticated %}
 		{% if user.is_administrator%}
 		<a href="{% url 'edit_book'  book.id %}">Edit</a>
-		<a href="{% url 'delete_book'  book.id %}">Delete</a>
+		<a href="{% url 'delete_book'  book.id %}" onclick="Show_alert()">Delete</a>
+		<a href="{% url 'view_pdf' book.id %}" target="_new">View Pdf</a>
 		{% endif %}
 		{% endif %}
 	</p>
 
 </div>
+<script type="text/javascript">
+	function Show_alert(){
+		alert("Are you sure to delete?")
+	}
+</script>
 
 
 {%endblock body%}

@@ -41,6 +41,14 @@ button {
 button:hover {
   opacity:1;
 }
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
 
 /* Extra styles for the cancel button */
 .cancelbtn {
@@ -75,6 +83,7 @@ button:hover {
   </style>
 </head>
 <body>
+  {% load static %}
   <div class="container">
     {% include 'partial/messages.html' %}
 
@@ -85,6 +94,9 @@ button:hover {
 
   {% else %}
 <form style="border:1px solid #ccc" method="POST">
+  <div class="imgcontainer">
+    <img src="{% static 'images/logo.jpg' %}" alt="Avatar" class="avatar" style="width:15%;">
+  </div>
   {% csrf_token %}
   <div class="container">
     <h1>Sign Up</h1>
@@ -106,14 +118,18 @@ button:hover {
       <p><button type="button" class="cancelbtn">Already have a account? <a href="{% url 'login' %}"> Login</a></button></p>
       <button type="submit" class="signupbtn">Sign Up</button>
     </div>
-    <div >
-  <a href="{% url 'home' %}"><button type="submit" style="  background-color:#338DFF;">Home</button></a>
-
-  </div>
+    
 </form>
 {% endif %}
 
 </div>
+<div class="container">
+  <div >
+  <a href="{% url 'home' %}"><button type="submit" style="  background-color:#338DFF;">Home</button></a>
+
+  </div>
+</div>
+
 </body>
 </html>
 

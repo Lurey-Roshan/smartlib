@@ -79,7 +79,7 @@ def login_user(request):
 
 
 		if not user:
-			messages.add_message(request,messages.ERROR,"Invalid Credintials")
+			messages.add_message(request,messages.ERROR,"Invalid Credintials. Please Review your Username and Password")
 			return render(request,'member/login.html', context)
 		login(request,user)
 		messages.add_message(request,messages.SUCCESS,f"Welcome {user.username}  ")
@@ -101,4 +101,5 @@ def user_delete(request, id):
 	user=User.objects.get(pk=id)
 	print(user)
 	user.delete()
+	messages.add_message(request, messages.SUCCESS, "User Deleted Successfully")
 	return render(request, 'member/user.html')

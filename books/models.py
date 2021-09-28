@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import FileExtensionValidator
 
 # Create your models here.
 class Level(models.Model):
@@ -41,7 +42,7 @@ class Book(models.Model):
 	author=models.CharField(max_length=100)
 	published_By=models.CharField(max_length=100, blank=True)
 	cover_pic=models.ImageField(upload_to='image/', default='image/pdf.png')
-	file=models.FileField(upload_to='uploads/')
+	file=models.FileField(upload_to='uploads/', validators=[FileExtensionValidator( ['pdf'] )]) 
 
 	def __str__(self):
 		return self.book_name

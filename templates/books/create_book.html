@@ -3,11 +3,13 @@
 {% block body %}  
 
 {% include 'partial/messages.html' %}
-<p>Please Select the options and enter other details as per requirement. </p>
+<div><p>Please Select the options and enter other details as per requirement. </p>
+</div>
 <div class="container-fluid">
 	{% if form %}
 <form action="" method="POST" enctype="multipart/form-data">
 	{{form.as_p}}
+	<p><small><i>Note*: Make sure the file is pdf.</i> </small></p>
 	{%csrf_token%}
 	<input type="submit" name="submit">
 </form>

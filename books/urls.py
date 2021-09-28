@@ -1,5 +1,6 @@
 from django.urls import path
 from books import views
+from django.contrib.auth.decorators import login_required
 from books.views import BookListView
 urlpatterns = [
     
@@ -10,12 +11,13 @@ urlpatterns = [
     path('create-program',views.create_program  ,name='create_program'),
     path('create-sem',views.create_sem  ,name='create_sem'),
     path('create-book',views.create_book  ,name='create_book'),
-    path('<id>', views.book_detail , name='book_detail'),
+    path('details/<id>', views.book_detail , name='book_detail'),
     path('level-index', views.level_index, name='level_index'),
     path('edit/<id>', views.edit_book , name='edit_book'),
     path('delete/<id>', views.delete_book , name='delete_book'),
-    #path('get_books',views.get_book, name='get_book')
-    path('', BookListView.as_view(), name='index'),
+    path('', login_required(BookListView.as_view()), name='index'),
+    path('course',views.courses, name='course'),
+    path('<id>/view',views.view_pdf, name='view_pdf'),
 
     
 ]

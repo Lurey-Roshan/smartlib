@@ -6,6 +6,10 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from books.forms import FacultyForm, LevelForm, BookForm, SemForm, ProgramForm, EditBookForm,LevelEditForm,SearchForm
+
+from django.http import FileResponse
+import os
+
 # Create your views here.
 #new 
 from django.views import View
@@ -17,6 +21,17 @@ def home(request ):
 	return render(request, 'home.html')
 #for book
 
+def courses(request):
+	program=Program.objects.all()
+	faculty=Faculty.objects.all()
+	level=Level.objects.all()
+	context={
+		'program':program,
+		'faculty':faculty,
+		'level':level
+	}
+	return render(request, 'books/course.html', context)
+	
 class BookListView(ListView):
 	model=Book
 	template_name='books/book.html'
@@ -25,10 +40,16 @@ class BookListView(ListView):
 		context=super().get_context_data(**kwargs)
 		context['filter']=BookFilter(self.request.GET ,queryset=self.get_queryset())
 		return context
-	
+
+
+
+@login_required(login_url='/member/login/')	
 def book_detail(request, id):
 	book=get_object_or_404(Book, pk=id)
-	return render(request,'books/book_detail.html', {'book':book})
+	context={
+		'book':book
+	}
+	return render(request,'books/book_detail.html', context)
 
 @login_required(login_url='/member/login/')
 def create_book(request):
@@ -40,8 +61,8 @@ def create_book(request):
 			messages.add_message(request,messages.SUCCESS,"Book Added Successfully")
 			return redirect('index')
 		else:
-			messages.add_message(request,messages.ERROR,"Please Fill the form well")
-			form=BookForm(instance=form.data)
+			messages.add_message(request,messages.ERROR,"Please Fill the form well and make sure the file has .pdf extension")
+			form=BookForm()
 	context={
 	'form': form
 	
@@ -74,7 +95,7 @@ def edit_book(request, id):
 
 	return render(request,'books/edit_book.html', context)
 
-
+@login_required(login_url='/member/login/')
 def level_index(request):
 	level=Level.objects.all()
 	context={
@@ -110,7 +131,7 @@ def create_level(request):
 		if form.is_valid():
 			form.save()
 			messages.add_message(request,messages.SUCCESS,"Level Created Successfully")
-			return redirect('level_index')
+			return redirect('course')
 	context={
 		'form': form
 
@@ -121,12 +142,12 @@ def create_level(request):
 def create_faculty(request):
 	form=FacultyForm()
 	if request.method=="POST":
-		form=faculty(request.POST)
+		form=FacultyForm(request.POST)
 
 		if form.is_valid():
 			form.save()
 			messages.add_message(request,messages.SUCCESS,"Faculty Created Successfully")
-			return redirect('index')
+			return redirect('course')
 	context={
 		'form': form
 	}
@@ -142,7 +163,7 @@ def create_program(request):
 		if form.is_valid():
 			form.save()
 			messages.add_message(request,messages.SUCCESS,"Program Created Successfully")
-			return redirect('index')
+			return redirect('course')
 	context={
 		'form': form
 	}
@@ -156,7 +177,7 @@ def create_sem(request):
 		if form.is_valid():
 			form.save()
 			messages.add_message(request,messages.SUCCESS,"Program Created Successfully")
-			return redirect('index')
+			return redirect('course')
 	context={
 		'form': form
 	
@@ -164,3 +185,24 @@ def create_sem(request):
 	return render(request, 'books/create_sem.html',context)
 
 
+
+'''def view_pdf(request, id):
+	book=Book.objects.get(pk=id)
+	pdf_file = open(book.file.url, "rb")
+	return HttpResponse(pdf_file, contenttype='application/PDF')'''
+
+def view_pdf(request, id):
+	book=Book.objects.get(pk=id)
+	#filepath=book.file.url
+
+	fsock = open(book.file.url, 'r')
+	HttpResponse(fsock, content_type='application/pdf')
+	#filepath = os.path.join('media/uploads', 'book')
+	#return FileResponse(open(filepath, 'r'), content_type='application/pdf')
+
+
+
+	#pdf_file = Book.objects.get(pk=id).file
+	#with open('pdf_file', 'r') as pdf:
+		#response = HttpResponse(pdf.read(), content_type='application/pdf')
+	#return response
