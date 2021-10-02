@@ -9,6 +9,11 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
+#for horeku hosting
+import dj_database_url
+import django_heroku
+
+
 
 import os
 from pathlib import Path
@@ -26,9 +31,9 @@ TEMPLATE_DIR=BASE_DIR/'templates'
 
 SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['smartlib.com']
 AUTH_USER_MODEL="member.User"
 
 # Application definition
@@ -48,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',#horeku
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -126,6 +132,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS=[BASE_DIR/ 'static/']
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'#horeku
 
 MEDIA_URL='/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR/ 'media')
@@ -134,3 +141,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR/ 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL='/member/login'
+
+
+django_heroku.settings(locals())
