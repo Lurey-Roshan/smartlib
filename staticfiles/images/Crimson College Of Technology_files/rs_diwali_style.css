@@ -1,0 +1,9 @@
+.rs_diwali_div{
+	width: 100px;
+    height: 200px;
+    right: 0;
+    /*top: 15px;*/
+    margin: 20px;
+    position: fixed;
+    z-index: 10000;
+}
