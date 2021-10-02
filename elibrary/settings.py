@@ -33,7 +33,7 @@ SECRET_KEY = str(os.getenv('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['smartlib.com']
+ALLOWED_HOSTS = ['cct-smartlibrary.herokuapp.com']
 AUTH_USER_MODEL="member.User"
 
 # Application definition
