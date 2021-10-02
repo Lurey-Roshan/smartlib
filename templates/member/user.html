@@ -18,7 +18,7 @@
 				<tr>
 					<td>{{u.username}}</td>
 					<td>{{u.email}}</td>
-					<td><a href="{% url 'del_user' u.id %}" onclick="myfunction()">Delete</a></td>
+					<td><a href="{% url 'del_user' u.id %}" onclick="if(!confirm('Are You sure to Delete User?')){return false;}">Delete</a></td>
 				</tr>
 				{% endfor %}
 			</table>

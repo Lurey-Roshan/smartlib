@@ -1,31 +1,48 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block body%}
 <div class="container-fluid">
 	{% include 'partial/messages.html' %}
 </div>
 <div class="container-fluid">
-	{% for l in level %}
-		{{l.name}}
-		<br>
-		{% for f in faculty %}
-			{% if f.level.name == l.name  %}
-				{{f.name}}
-				
-				{% for p in program %}
-					{% if p.faculty.name == f.name and p.level.name == l.name %}
-						{{p.prgm}}
-					{% endif %}
-					
-				{% endfor %}
-			{%endif %}
+	<p>We offer following Courses</p>
+		{% for l in level %}
+			<ul>
+				<strong>{{l.name}}</strong>
+			</ul>
 			
-		{% endfor%}
+			<div class="container"  id="faculty">
+				{% for f in faculty %}
+					{%  if f.level.name == l.name%}
+						{{f.name}}
+						<div class="container-fluid" style="display:block" id='program'>
+							{% for p in program %}
+							{% if p.faculty.name == f.name %}
+							<div class="container" style="display:block;">
+								<ul><small>{{p.prgm}}</small></ul>
+							</div>
+								
+							{% endif %}
+						{%endfor%}
+						</div>
+						
+					{% endif %}
+				{% endfor %}
+			</div>
 		<br>
-	{% endfor%}
+		{% endfor%}
+	
 
 
 </div>
-
+<script type="text/javascript">
+	function show_faculty(){
+		document.getElementById('faculty').style.display="block";
+	}
+	function show_program(){
+		document.getElementById("program").style.display="block";
+	}
+</script>
 {% endblock body %}
