@@ -1,0 +1,8 @@
+<p>Pdf View Page</p>
+{% if book %}
+{{book.file.url}}
+<iframe src="{{book.file.url}}"width="100%" height="500px"></iframe>
+<embed src="{{book.file.url}}" type="application/pdf"></embed>
+{% else%}
+<p>No file</p>
+{% endif %}

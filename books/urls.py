@@ -18,9 +18,8 @@ urlpatterns = [
     path('', login_required(BookListView.as_view()), name='index'),
     path('course',views.courses, name='course'),
     path('<id>/view',views.view_pdf, name='view_pdf'),
+    path('image/<id>/view', views.view_image, name="view_image")
 
     
 ]
-#path('', views. , name=''),
 
-#https://www.javatpoint.com/django-forms

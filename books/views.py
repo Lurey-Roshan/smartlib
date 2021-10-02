@@ -3,14 +3,20 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from books. models import   Level,Faculty ,Book,Program,Semester
 from django.http import HttpResponseRedirect
+from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from books.forms import FacultyForm, LevelForm, BookForm, SemForm, ProgramForm, EditBookForm,LevelEditForm,SearchForm
 
-from django.http import FileResponse
+from PyPDF2 import PdfFileReader
+from django.http import FileResponse, Http404
 import os
-
+from django.conf import settings
 # Create your views here.
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+
 #new 
 from django.views import View
 from django.views.generic import ListView
@@ -184,25 +190,20 @@ def create_sem(request):
 	}
 	return render(request, 'books/create_sem.html',context)
 
-
-
-'''def view_pdf(request, id):
-	book=Book.objects.get(pk=id)
-	pdf_file = open(book.file.url, "rb")
-	return HttpResponse(pdf_file, contenttype='application/PDF')'''
-
 def view_pdf(request, id):
+	book=Book.objects.get(pk=id).file.url
+	print(book)
+	#filepath = os.path.join(settings.MEDIA_ROOT, book)
+	print(book)
+	context={
+		'book':book
+	}
+	return render(request,'books/view_pdf.html', context)
+
+def view_image(request, id):
 	book=Book.objects.get(pk=id)
-	#filepath=book.file.url
-
-	fsock = open(book.file.url, 'r')
-	HttpResponse(fsock, content_type='application/pdf')
-	#filepath = os.path.join('media/uploads', 'book')
-	#return FileResponse(open(filepath, 'r'), content_type='application/pdf')
-
-
-
-	#pdf_file = Book.objects.get(pk=id).file
-	#with open('pdf_file', 'r') as pdf:
-		#response = HttpResponse(pdf.read(), content_type='application/pdf')
-	#return response
+	context={
+		'book':book
+	}
+	return render(request,'books/view_image.html', context)
+	

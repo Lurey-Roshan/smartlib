@@ -15,16 +15,19 @@
 				<p>Sem/Year: {{book.sem.name}}</p>
 				<p>Faculty: {{book.faculty.name}}</p>
 				<p>Level: {{book.level.name}}</p>
-				<p><a href="{{book.file.url}}">Download {{book.file.url}}</a></p>
+				<button type="submit" style="background-color:#00FFFF;"><a href="{{book.file.url}}">Download</a></button>
+				
 			</ul>
 		
 		
 		
 		{% if user.is_authenticated %}
 		{% if user.is_administrator%}
-		<a href="{% url 'edit_book'  book.id %}">Edit</a>
-		<a href="{% url 'delete_book'  book.id %}" onclick="Show_alert()">Delete</a>
+		<button type="submit" onclick="Show_alert()">Delete</button>
+		<button type="submit" style="background-color: #7FFFD4"><a href="{% url 'edit_book'  book.id %}">Edit</a> </button>
+		
 		<a href="{% url 'view_pdf' book.id %}" target="_new">View Pdf</a>
+		<a href="{% url 'view_image' book.id %}" target="_new">View Image</a>
 		{% endif %}
 		{% endif %}
 	</p>
@@ -32,9 +35,14 @@
 </div>
 <script type="text/javascript">
 	function Show_alert(){
-		alert("Are you sure to delete?")
+		if (confirm("Are Sure to Delete?")) {
+  			window.location = "{% url 'delete_book'  book.id %}";
+			} 
+			
+			
 	}
 </script>
 
 
 {%endblock body%}
+

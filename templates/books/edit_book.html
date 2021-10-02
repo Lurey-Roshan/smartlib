@@ -2,16 +2,12 @@
 
 {% block body%}
 <p>Edit Book Detail</p>
-<form method="POST">
+<form method="POST" onSubmit="if(!confirm('Are You sure to Update?')){return false;}">
 	{{form.as_p}}	
 	{% csrf_token%}
-	<input type="submit" class="ui button primary" value="Update" onclick="update_book()">
+	<input type="submit" class="ui button primary" value="Update" >
 </form>
 
-<script type="text/javascript">
-	function update_book(){
-		alert("Are you sure to Update?")
-	}
-</script>
+
 {% endblock body%}
 

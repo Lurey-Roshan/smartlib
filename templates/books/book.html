@@ -54,7 +54,9 @@ margin-left: auto; margin-right:auto ;width: 70%;" >
 				
 				{%if user.is_authenticated%}
 				{%if user.is_administrator%}
-				<td><a href="{% url 'edit_book' b.id %}">Edit</a>/<a href="{% url 'delete_book' b.id %}"onclick="myfunction()">Delete</a></td>
+				<td><a href="{% url 'edit_book' b.id %}">Edit</a>\
+				<a href="{% url 'delete_book' b.id %}"onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a>
+
 				{%endif%}
 				{%endif%}
 			</td>
@@ -73,7 +75,8 @@ margin-left: auto; margin-right:auto ;width: 70%;" >
 <br>
 {%if user.is_authenticated%}
 {%if user.is_administrator%}
-<a href="{% url 'create_book' %}">Create New Book</a>
+
+<button type="submit" style="background-color:#00FFFF;"><a href="{% url 'create_book' %}">Create New Book</a></button>
 {%endif%}
 {%endif%}
 <br> 
@@ -92,10 +95,15 @@ margin-left: auto; margin-right:auto ;width: 70%;" >
 		document.getElementById('s_btn').style.display="block";
 	}
 	function myfunction(){
-		alert("Are you sure You want to delete Book?")
-	}
+		
+			}
+			
+	
 </script>	
 
 
 </div>
 {% endblock body%}
+if (confirm("Are Sure to Delete?")) {
+  			window.location = "{% url 'delete_book'  b.id %}";
+			}
