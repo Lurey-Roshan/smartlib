@@ -3,9 +3,45 @@
 
 
 {% block body%}
+
 <div class="container-fluid">
 	{% include 'partial/messages.html' %}
 </div>
+{% if user.is_administrator %}
+
+<div class="container-fluid">
+	<p>We offer following Courses</p>
+		{% for l in level %}
+			<ul>
+				<strong>{{l.name}} <a href="{% url 'delete_level' l.id %}" onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a></strong>
+			</ul>
+			
+			<div class="container"  id="faculty">
+				{% for f in faculty %}
+					{%  if f.level.name == l.name%}
+						<ul>{{f.name}} <a href="{% url 'delete_faculty' f.id %}"onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a></ul>
+						<div class="container-fluid" style="display:block" id='program'>
+							{% for p in program %}
+							{% if p.faculty.name == f.name %}
+							<div class="container" style="display:block;">
+								<ul><small>{{p.prgm}}<a href="{% url 'delete_program' p.id %}" onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a></small></ul>
+							</div>
+								
+							{% endif %}
+						{%endfor%}
+						</div>
+						
+					{% endif %}
+				{% endfor %}
+			</div>
+		<br>
+		{% endfor%}
+	
+
+
+</div>
+
+{% else %}
 <div class="container-fluid">
 	<p>We offer following Courses</p>
 		{% for l in level %}
@@ -37,6 +73,7 @@
 
 
 </div>
+{% endif %}
 <script type="text/javascript">
 	function show_faculty(){
 		document.getElementById('faculty').style.display="block";
@@ -46,3 +83,5 @@
 	}
 </script>
 {% endblock body %}
+
+

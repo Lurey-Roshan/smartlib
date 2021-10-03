@@ -18,7 +18,11 @@ urlpatterns = [
     path('', login_required(BookListView.as_view()), name='index'),
     path('course',views.courses, name='course'),
     path('<id>/view',views.view_pdf, name='view_pdf'),
-    path('image/<id>/view', views.view_image, name="view_image")
+    path('image/<id>/view', views.view_image, name="view_image"),
+    path('level/<id>/delete', views.delete_level , name="delete_level"),
+    path('sem/<id>/delete', views.delete_sem , name="delete_sem"),
+    path('program/<id>/delete', views.delete_program , name="delete_program"),
+    path('faculty/<id>/delete', views.delete_faculty , name="delete_faculty"),
 
     
 ]

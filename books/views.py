@@ -207,3 +207,33 @@ def view_image(request, id):
 	}
 	return render(request,'books/view_image.html', context)
 	
+@login_required(login_url='/member/login/')
+def delete_level(request, id):
+	level=get_object_or_404(Level, pk=id)
+	level.delete()
+	return redirect('course')
+
+	
+@login_required(login_url='/member/login/')
+def delete_sem(request, id):
+	sem=get_object_or_404(Semester, pk=id)
+	sem.delete()
+	return redirect('course')
+
+
+@login_required(login_url='/member/login/')
+def delete_program(request, id):
+	program=get_object_or_404(Program, pk=id)
+	program.delete()
+	return redirect('course')
+
+
+
+@login_required(login_url='/member/login/')
+def delete_faculty(request, id):
+	faculty=get_object_or_404(Faculty, pk=id)
+	faculty.delete()
+	return redirect('course')
+
+
+
