@@ -1,8 +1,32 @@
-<p>Pdf View Page</p>
-{% if book %}
-{{book.file.url}}
-<iframe src="{{book.file.url}}"width="100%" height="500px"></iframe>
-<embed src="{{book.file.url}}" type="application/pdf"></embed>
-{% else%}
-<p>No file</p>
-{% endif %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>PDf_view</title>
+	<script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@2.10.377/build/pdf.min.js"></script>
+</head>
+<body>
+	{% load static %}
+<canvas id="my_canvas">
+	{{file}}
+</canvas>
+<script type="text/javascript">
+	pdfjsLib.getDocument('filename').then(doc=>{
+		console.log("this file has"+doc._pdfInfo.numPages + "pages")
+
+		pdf.getPage(1).then( page=>{
+			var myCanvas=document.getElementById("my_canvas");
+			var context=myCanvas.getContext("2d");
+			var viewport=page.getViewport(1);
+			myCanvas.width=viewport.width;
+			myCanvas.height=viewport.height;
+			page.render({
+				canvasContext:context, 
+				viewport : viewport
+			});
+
+		});
+	});
+</script>
+</body>
+</html>

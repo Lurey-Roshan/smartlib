@@ -11,18 +11,20 @@ from django.contrib import messages
 
 def register(request):
 	if request.method=="POST":
-		'''context={
+		context={
 		'has_error':False,
 		'data':request.POST
-		}'''
+		}
 		email=request.POST.get('email')
 		username=request.POST.get('username')
 		password=request.POST.get('password')
 		password2=request.POST.get('password2')
 		
+		print(email)
+		print(username)
+		print(password)
 
-
-		'''if len(password)<6:
+		if len(password)<6:
 			messages.add_message(request,messages.ERROR, "Password should be at least 6 character")
 			context['has_error']=True
 		if password != password2:
@@ -47,18 +49,15 @@ def register(request):
 			context['has_error']=True
 
 		if context['has_error']:
-			return render(request,'member/register.html',context)'''
-
-		user=User.objects.create_user(username=username,email=email)
-		user.set_password(password)
-		user.save()
-
-		
-
-		messages.add_message(request,messages.SUCCESS,"Account created successfully, You can login now")
+			return render(request,'member/newregister.html',context)
+		else:
+			user=User.objects.create_user(username=username,email=email)
+			user.set_password(password)
+			user.save()
+			messages.add_message(request,messages.SUCCESS,"Account created successfully, You can login now")
 		return redirect('login')
 
-	return render(request,'member/register.html')
+	return render(request,'member/newregister.html')
 
 @login_required(login_url='/member/login/')
 def logout_user(request):
@@ -74,17 +73,18 @@ def login_user(request):
 		}
 		username=request.POST.get('username')
 		password=request.POST.get('password')
-
+		print(username)
+		print(password)
 		user=authenticate(request,username=username, password=password)
 
 
 		if not user:
 			messages.add_message(request,messages.ERROR,"Invalid Credintials. Please Review your Username and Password")
-			return render(request,'member/login.html', context)
+			return render(request,'member/newlogin.html', context)
 		login(request,user)
 		messages.add_message(request,messages.SUCCESS,f"Welcome {user.username}  ")
 		return redirect(reverse('home'))
-	return render(request,'member/login.html')
+	return render(request,'member/newlogin.html')
 
 
 @login_required(login_url='/member/login/')

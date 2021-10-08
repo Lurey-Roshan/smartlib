@@ -23,6 +23,8 @@ from django.views.generic import ListView
 from books.filters import BookFilter
 
 
+
+
 def home(request ):
 	return render(request, 'home.html')
 #for book
@@ -190,15 +192,8 @@ def create_sem(request):
 	}
 	return render(request, 'books/create_sem.html',context)
 
-def view_pdf(request, id):
-	book=Book.objects.get(pk=id).file.url
-	print(book)
-	#filepath = os.path.join(settings.MEDIA_ROOT, book)
-	print(book)
-	context={
-		'book':book
-	}
-	return render(request,'books/view_pdf.html', context)
+
+	
 
 def view_image(request, id):
 	book=Book.objects.get(pk=id)
@@ -237,3 +232,10 @@ def delete_faculty(request, id):
 
 
 
+def view_pdf(request, id):
+	book=Book.objects.get(pk=id).file.url
+	print(book)
+	with open(book, 'rb') as pdf:
+		response = HttpResponse(pdf.read(),content_type='application/pdf')
+		response['Content-Disposition'] = 'filename=book.book_name.pdf'
+		return response
