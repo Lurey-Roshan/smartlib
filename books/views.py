@@ -38,11 +38,13 @@ def courses(request):
 		'faculty':faculty,
 		'level':level
 	}
-	return render(request, 'books/course.html', context)
+	#return render(request, 'books/course.html', context)
+	return render(request, 'assets/book/course.html',context)
 	
 class BookListView(ListView):
 	model=Book
-	template_name='books/book.html'
+	template_name='assets/book/lib.html'
+	#template_name='books/book.html'
 
 	def get_context_data(self, **kwargs):
 		context=super().get_context_data(**kwargs)
@@ -51,15 +53,16 @@ class BookListView(ListView):
 
 
 
-@login_required(login_url='/member/login/')	
+@login_required(login_url='/member/login')	
 def book_detail(request, id):
 	book=get_object_or_404(Book, pk=id)
 	context={
 		'book':book
 	}
-	return render(request,'books/book_detail.html', context)
+	#return render(request,'books/book_detail.html', context)
+	return render(request,'assets/book/book_detail.html', context)
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def create_book(request):
 	form=BookForm()
 	if request.method== "POST":
@@ -76,9 +79,11 @@ def create_book(request):
 	
 	}
 
-	return render(request, 'books/create_book.html',context)
+	#return render(request, 'books/create_book.html',context)
+	return render(request, 'assets/book/createbook.html',context)
 
-@login_required(login_url='/member/login/')
+
+@login_required(login_url='/member/login')
 def delete_book(request, id):
 	b=get_object_or_404(Book, pk=id)
 	b.delete()
@@ -86,7 +91,7 @@ def delete_book(request, id):
 	return redirect('index')
 
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def edit_book(request, id):
 	book=get_object_or_404(Book, pk=id)
 	form=EditBookForm(instance=book)
@@ -101,9 +106,11 @@ def edit_book(request, id):
 		'book':book
 	}
 
-	return render(request,'books/edit_book.html', context)
+	#return render(request,'books/edit_book.html', context)
+	return render(request,'assets/book/edit_book.html', context)
 
-@login_required(login_url='/member/login/')
+
+@login_required(login_url='/member/login')
 def level_index(request):
 	level=Level.objects.all()
 	context={
@@ -111,7 +118,7 @@ def level_index(request):
 	}
 	return render(request,'books/level_index.html', context)
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def edit_level(request, id):
 	lvl=get_object_or_404(Level, pk=id)
 	form=LevelEditForm(instance=lvl)
@@ -131,7 +138,7 @@ def edit_level(request, id):
 	}
 	return render(request,'books/level_edit.html', context)
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def create_level(request):
 	form=LevelForm()
 	if request.method=="POST":
@@ -144,9 +151,11 @@ def create_level(request):
 		'form': form
 
 	}
-	return render(request,'books/create_level.html',context)
+	
+	#return render(request,'books/create_level.html',context)
+	return render(request,'assets/book/add_level.html',context)
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def create_faculty(request):
 	form=FacultyForm()
 	if request.method=="POST":
@@ -160,10 +169,12 @@ def create_faculty(request):
 		'form': form
 	}
 
-	return render(request,'books/create_faculty.html',context)
+	#return render(request,'books/create_faculty.html',context)
+	return render(request,'assets/book/add_faculty.html',context)
 
 
-@login_required(login_url='/member/login/')
+
+@login_required(login_url='/member/login')
 def create_program(request):
 	form=ProgramForm()
 	if request.method=="POST":
@@ -175,9 +186,10 @@ def create_program(request):
 	context={
 		'form': form
 	}
-	return render(request, 'books/create_program.html',context)
+	#return render(request, 'books/create_program.html',context)
+	return render(request, 'assets/book/add_program.html',context)
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def create_sem(request):
 	form=SemForm()
 	if request.method=="POST":
@@ -190,7 +202,9 @@ def create_sem(request):
 		'form': form
 	
 	}
-	return render(request, 'books/create_sem.html',context)
+	#return render(request, 'books/create_sem.html',context)
+	return render(request, 'assets/book/add_sem.html',context)
+
 
 
 	
@@ -202,21 +216,21 @@ def view_image(request, id):
 	}
 	return render(request,'books/view_image.html', context)
 	
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def delete_level(request, id):
 	level=get_object_or_404(Level, pk=id)
 	level.delete()
 	return redirect('course')
 
 	
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def delete_sem(request, id):
 	sem=get_object_or_404(Semester, pk=id)
 	sem.delete()
 	return redirect('course')
 
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def delete_program(request, id):
 	program=get_object_or_404(Program, pk=id)
 	program.delete()
@@ -224,7 +238,7 @@ def delete_program(request, id):
 
 
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def delete_faculty(request, id):
 	faculty=get_object_or_404(Faculty, pk=id)
 	faculty.delete()

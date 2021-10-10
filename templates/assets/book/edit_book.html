@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CCT | Users</title>
+<title>CCT | BooK Detail</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://webthemez.com" />
@@ -65,7 +65,7 @@
 						<li ><a href="{% url 'course'%}">Courses</a></li>
                         <li ><a href="{% url 'index' %}">Library</a></li>
                         <li><a href="{% url 'contact'%}">Contact</a></li>
-                        <li class="active"><a href="{% url 'users'%}">Users</a></li>
+                        <li><a href="{% url 'users'%}">Users</a></li>
                         <li><a href="{%url 'login'%}">Login</a></li>
                         <li><a href="{% url 'register'%}">Register</a></li>
                         <li><a href="{% url 'log_out'%}">Logout</a></li>
@@ -80,102 +80,83 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h2 class="pageTitle">Users</h2>
+				<h2 class="pageTitle">Edit Book Detail</h2>
 			</div>
 		</div>
 	</div>
 	</section>
 
-
-<div class="container ">
-{% include 'partial/messages.html' %}
 <br>
-{% if user.is_administrator%}
-	{% if users %}
-		
-			<table class="u-table">
-				<tr>
-					<th>Username</th>
-					<th>Email</th>
-					<th>Remarks</th>
-					
-				</tr>
-				{% for u in users %}
-				<tr>
-					<td>{{u.username}}</td>
-					<td>{{u.email}}</td>
-					<td><a href="{% url 'del_user' u.id %}" onclick="if(!confirm('Are You sure to Delete User?')){return false;}">Delete</a></td>
-				</tr>
-				{% endfor %}
-			</table>
-			
-		
-	{% else %}
-	<p >No users registered yet. </p>
-	{% endif %}
-{%endif %}
 
+<div style="margin-left:160px">
+	<form method="POST" onSubmit="if(!confirm('Are You sure to Update?')){return false;}">
+	{{form.as_p}}	
+	{% csrf_token%}
+	<input type="submit" class="ui button primary" value="Update" >
+</form>
 </div>
+
 <br>
 
 
 
-    <!-- Footer -->
-    <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="widget">
-                    <h5 class="widgetheading" style="font-size: 20px;">Our Contact</h5>
-                    <address>
-                    <strong>Crimson College of Technology</strong><br>
-                    JC Main Road, Near Silnile tower<br>
-                     Pin-21542 NewYork US.</address>
-                    <p>
-                        <i class="icon-phone"></i> (123) 456-789 - 1255-12584 <br>
-                        <i class="icon-envelope-alt"></i> email@domainname.com
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="widget">
-                    <h5 class="widgetheading" style="font-size: 20px;">Other Important Links</h5>
-                    <ul class="link-list">
-                        <li><a href="#">Latest Events</a></li>
-                        <li><a href="#">Terms and conditions</a></li>
-                        <li><a href="#">Privacy policy</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Contact us</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            
-        </div>
-    </div>
-    <div id="sub-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="copyright">
-                        <p>
-                            <span>&copy; Crimson 2021 All right reserved. <br/></span> 
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="social-network">
-                        <li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    </footer>
+
+
+<footer>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6">
+				<div class="widget">
+					<h5 class="widgetheading" style="font-size: 20px;">Our Contact</h5>
+					<address>
+					<strong>Crimson College of Technology</strong><br>
+					JC Main Road, Near Silnile tower<br>
+					 Pin-21542 NewYork US.</address>
+					<p>
+						<i class="icon-phone"></i> (123) 456-789 - 1255-12584 <br>
+						<i class="icon-envelope-alt"></i> email@domainname.com
+					</p>
+				</div>
+			</div>
+			<div class="col-lg-6">
+				<div class="widget">
+					<h5 class="widgetheading" style="font-size: 20px;">Other Important Links</h5>
+					<ul class="link-list">
+						<li><a href="#">Latest Events</a></li>
+						<li><a href="#">Terms and conditions</a></li>
+						<li><a href="#">Privacy policy</a></li>
+						<li><a href="#">Career</a></li>
+						<li><a href="#">Contact us</a></li>
+					</ul>
+				</div>
+			</div>
+			
+			
+		</div>
+	</div>
+	<div id="sub-footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="copyright">
+						<p>
+							<span>&copy; Crimson 2021 All right reserved. <br/></span> 
+						</p>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<ul class="social-network">
+						<li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+						<li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+						<li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+						<li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
+						<li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	</footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
 <!-- javascript
@@ -199,5 +180,3 @@
  <script src="{%static 'contact/contact_me.js' %}"></script>
 </body>
 </html>
-    <!-- End Footer -->
-

@@ -59,7 +59,7 @@ def register(request):
 
 	return render(request,'member/newregister.html')
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def logout_user(request):
 	logout(request)
 	messages.add_message(request,messages.SUCCESS,"Successfully Logout ")
@@ -87,7 +87,7 @@ def login_user(request):
 	return render(request,'member/newlogin.html')
 
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def users(request):
 	users=User.objects.filter(is_student=True)
 	context={
@@ -96,7 +96,7 @@ def users(request):
 	return render(request,'member/user.html', context)
 
 
-@login_required(login_url='/member/login/')
+@login_required(login_url='/member/login')
 def user_delete(request, id):
 	user=User.objects.get(pk=id)
 	print(user)

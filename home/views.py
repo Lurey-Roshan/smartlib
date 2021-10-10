@@ -6,6 +6,8 @@ from django.urls import reverse
 
 from home.models import About_Us, Mission,Program, Message_from_Principal
 # Create your views here.
+from home.forms import ContactForm
+
 
 def Home_page(request):
 	aboutus=get_object_or_404(About_Us, id=1)
@@ -20,5 +22,23 @@ def Home_page(request):
 		'message': message
 
 	}
-	return render(request,'home/home.html', context)
-	#return render(request,'assets/admissions.html', context)
+	#return render(request,'home/home.html', context)
+	return render(request,'assets/home/home.html', context)
+
+def contact(request):
+	form=ContactForm()
+	if request.method=="POST":
+		form=ContactForm(request.POST)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request,messages.SUCCESS,"Message Sent Successfully")
+			return redirect('contact')
+		else:
+			form=ContactForm()
+			messages.add_message(request,messages.SUCCESS,"Sorry!. We cannot send message. Please fill form as per requirement")
+			return redirect('contact')
+	
+	context={
+		'form':form
+	}
+	return render(request, 'home/contact.html',context)

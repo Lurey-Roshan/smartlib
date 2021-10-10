@@ -11,4 +11,8 @@ table, th, td {
         background-color:#D3D3D3;
         width: 70%;
 
-        
+        }
+
+body{
+        font-size: 18px;
+}
