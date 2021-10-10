@@ -116,7 +116,9 @@ a {
 </style>
 
 <body class="align">
-
+{% if user.is_authenticated %}
+  <p>You are not authorized to Register</p>
+{% else %}
   <div class="grid align__item">
 
     <div class="register">
@@ -165,7 +167,7 @@ a {
     </div>
 
   </div>
-
+{% endif%}
 </body>
 
 </html>

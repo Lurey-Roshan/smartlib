@@ -49,26 +49,34 @@
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
                         <li ><a href="{% url 'home' %}">Home</a></li> 
+                        {%if user.is_administrator%}
 						 <li class="dropdown ">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
-                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
-                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
-                            
+		                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret"></b></a>
+		                        <ul class="dropdown-menu">
+		                            
+		                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
+		                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
+		                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
+		                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
+		                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
+		                            
 
-                        </ul>
-                    </li> 
+		                        </ul>
+                    	</li> 
+                    	{% endif %}
 						<li ><a href="{% url 'course'%}">Courses</a></li>
                         <li ><a href="{% url 'index' %}">Library</a></li>
                         <li><a href="{% url 'contact'%}">Contact</a></li>
-                        <li><a href="{% url 'users'%}">Users</a></li>
+
+                        {% if user.is_authenticated%}
+                            {%if user.is_administrator%}
+                                <li><a href="{% url 'users'%}">Users</a></li>
+                            {%endif %}
+                        <li><a href="{% url 'log_out'%}">{{request.user.username}} Logout</a></li>
+                        {% else %}
                         <li><a href="{%url 'login'%}">Login</a></li>
                         <li><a href="{% url 'register'%}">Register</a></li>
-                        <li><a href="{% url 'log_out'%}">Logout</a></li>
+                        {%endif %}
                         
                     </ul>
                 </div>
@@ -87,7 +95,7 @@
 	</section>
 
 <br>
-
+{% if user.is_administrator %}
 <div style="margin-left:160px">
 	<form method="POST" onSubmit="if(!confirm('Are You sure to Update?')){return false;}">
 	{{form.as_p}}	
@@ -95,7 +103,12 @@
 	<input type="submit" class="ui button primary" value="Update" >
 </form>
 </div>
-
+{% else %}
+<div class="container">
+	<p>You cannot edit this </p>
+	
+</div>
+{% endif %}
 <br>
 
 
@@ -107,7 +120,7 @@
 		<div class="row">
 			<div class="col-lg-6">
 				<div class="widget">
-					<h5 class="widgetheading" style="font-size: 20px;">Our Contact</h5>
+					<h5 class="widgetheading" >Our Contact</h5>
 					<address>
 					<strong>Crimson College of Technology</strong><br>
 					JC Main Road, Near Silnile tower<br>

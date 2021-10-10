@@ -49,26 +49,34 @@
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
                         <li ><a href="{% url 'home' %}">Home</a></li> 
+                        {%if user.is_administrator%}
 						 <li class="dropdown active">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
-                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
-                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
-                            
+	                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret"></b></a>
+	                        <ul class="dropdown-menu">
+	                            
+	                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
+	                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
+	                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
+	                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
+	                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
+	                            
 
-                        </ul>
-                    </li> 
+	                        </ul>
+                    	</li> 
+                    	{%endif %}
 						<li ><a href="{% url 'course'%}">Courses</a></li>
                         <li ><a href="{% url 'index' %}">Library</a></li>
                         <li><a href="{% url 'contact'%}">Contact</a></li>
-                        <li><a href="{% url 'users'%}">Users</a></li>
+                        {% if user.is_authenticated%}
+                            {%if user.is_administrator%}
+                        		<li><a href="{% url 'users'%}">Users</a></li>
+                        	{% endif %}
+                        <li><a href="{% url 'log_out'%}">{{user.username}} Logout</a></li>
+                        {% else %}
                         <li><a href="{%url 'login'%}">Login</a></li>
                         <li><a href="{% url 'register'%}">Register</a></li>
-                        <li><a href="{% url 'log_out'%}">Logout</a></li>
+                        
+                        {% endif %}
                         
                     </ul>
                 </div>
@@ -85,7 +93,7 @@
 		</div>
 	</div>
 	</section>
-
+{% if user.is_administrator %}
 <div class="container-fluid" style="margin-left: 160px; margin-right:auto">
 	{% include 'partial/messages.html' %}
 	<div><p>Please Select the options and enter other details as per requirement. </p>
@@ -101,6 +109,7 @@
 	{% endif %}
 	</div>
 </div>
+{% endif%}
 <br>
 
 
@@ -114,7 +123,7 @@
 	<footer>
 	<div class="container">
 		<div class="row">
-			<div class="col-lg-3">
+			<div class="col-lg-6">
 				<div class="widget">
 					<h5 class="widgetheading">Our Contact</h5>
 					<address>
@@ -127,7 +136,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="col-lg-3">
+			<div class="col-lg-6">
 				<div class="widget">
 					<h5 class="widgetheading">Other Important Links</h5>
 					<ul class="link-list">

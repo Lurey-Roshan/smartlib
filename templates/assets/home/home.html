@@ -47,27 +47,33 @@
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="{% url 'home' %}">Home</a></li> 
-						 <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
-                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
-                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
-                            
+						{%if user.is_administrator%}
+						<li class="dropdown">
+		                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret"></b></a>
+		                        <ul class="dropdown-menu">
+		                            
+		                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
+		                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
+		                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
+		                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
+		                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
+		                            
 
-                        </ul>
-                    </li> 
+		                        </ul>
+                    	</li> 
+                    	{% endif %}
 						<li><a href="{% url 'course'%}">Courses</a></li>
                         <li><a href="{% url 'index'%}">Library</a></li>
                         <li><a href="{% url 'contact'%}">Contact</a></li>
-                        <li><a href="{% url 'users'%}">Users</a></li>
+                        {% if user.is_authenticated %}
+                        	{%if user.is_administrator%}
+                        		<li><a href="{% url 'users'%}">Users</a></li>
+                        	{%endif %}
+                        <li><a href="{% url 'log_out'%}">{{request.user.username}} Logout</a></li>
+                        {% else%}
                         <li><a href="{%url 'login'%}">Login</a></li>
                         <li><a href="{% url 'register'%}">Register</a></li>
-                        <li><a href="{% url 'log_out'%}">Logout</a></li>
-                        
+                        {% endif%}
                     </ul>
                 </div>
             </div>
@@ -75,7 +81,9 @@
 	</header>
 	<!-- end header -->
 	<section id="banner">
-	 
+	 <div class="container">
+	 	{% include 'partial/messages.html' %}
+	 </div>
 	<!-- Slider -->
         <div id="main-slider" class="flexslider">
             <ul class="slides">
