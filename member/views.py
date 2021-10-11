@@ -5,9 +5,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from member.models import User
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 # Create your views here.
-
+from member.forms import UserEditForm
 
 def register(request):
 	if request.method=="POST":
@@ -89,7 +90,7 @@ def login_user(request):
 
 @login_required(login_url='/member/login')
 def users(request):
-	users=User.objects.filter(is_student=True)
+	users=User.objects.all()
 	context={
 		'users':users
 	}
@@ -103,3 +104,33 @@ def user_delete(request, id):
 	user.delete()
 	messages.add_message(request, messages.SUCCESS, "User Deleted Successfully")
 	return render(request, 'member/user.html')
+
+
+@login_required(login_url='/member/login')
+def edit_user(request, id):
+	mem=get_object_or_404(User, pk=id)
+	form=UserEditForm(instance=mem)
+	if request.method=="POST":
+		form=UserEditForm(request.POST, instance=mem)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request, messages.SUCCESS, "User Updated Successfully")
+			#return redirect('user_detail')
+			return HttpResponseRedirect(reverse("user_detail", kwargs={'id':mem.pk}))
+		else:
+			print(false)
+			messages.add_message(request, messages.ERROR, "User Cannot updated")
+			form=UserEditForm(instance=mem)
+			
+	context={
+		'form':form,
+		'mem':mem
+	}
+	return render(request,'member/edit_user.html', context)
+	#mem for user
+def user_detail(request, id):
+	mem=get_object_or_404(User, pk=id)
+	context={
+		'mem':mem
+	}
+	return render(request,'member/userdetail.html',context)

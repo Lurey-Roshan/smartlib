@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'home',
     'django_filters',
     'member',
+    'about',
     
 ]
 

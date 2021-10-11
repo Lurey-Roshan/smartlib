@@ -55,10 +55,8 @@
                             <ul class="dropdown-menu">
                                 
                                 <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                                <li><a href="{% url 'create_level'%}">Add Level</a></li>
-                                <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
                                 <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-                                <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
+                                
                                 
 
                             </ul>
@@ -95,14 +93,16 @@
     <br>
 {% if user.is_administrator %}
 <div class="container">
-    <p>Please select Level and Faculty and Enter Program</p>
-    {% if form %}
-        <form action="" method="POST">
+    <div class="container">
+        {% if form %}
+        <form action="" method="POST"enctype="multipart/form-data">
             {{form.as_p}}
             {%csrf_token%}
             <input type="submit" name="Create">
         </form>
     {% endif %}
+    </div>
+    
 </div>
 {% endif %}
 <br>

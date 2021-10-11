@@ -53,10 +53,9 @@
 		                        <ul class="dropdown-menu">
 		                            
 		                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
-		                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
-		                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-		                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-		                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
+		                            <li><a href="{% url 'create_program'%}">Add Program</a></li>
+		                            
+		                            
 		                            
 
 		                        </ul>
@@ -113,7 +112,12 @@
 			<div class="row">
 				<div class="col-md-10 col-sm-9">
 					<h3>Welcome to Crimson College Of Technology</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores quae porro consequatur aliquam, incidunt eius magni provident, doloribus omnis minus temporibus perferendis nesciunt quam repellendus nulla nemo ipsum odit corrupti</p>
+					<p>Crimson College of Technology (CCT) has been established in 2000 AD by a group of dedicated academicians from different educational backgrounds like IT, management, professionals from health-sciences and engineers.<br>
+
+					The college is currently running BBA, BCA, BCIS ,Bachelor in Pharmacy (B.PHARM) and B.Sc. Medical Lab Technology (BMLT) programs affiliated to Pokhara University (PU).
+					<br>
+					CCT is distinguished as an ‘A GRADE COLLEGE IN EMPLOYMENT’ in the region. Adding to it, CCT is committed to embracing an inclusive quality assurance culture, and has developed a number of policies and procedures to ensure that our courses and services are the highest quality in pharmacy education. The college is located in the heart of the city and is linked with east-west highway.
+					Butwal has become a focal point for education, trade and transportation.</p>
 				</div>
 			
 			</div>
@@ -170,8 +174,9 @@
 				<br/>
 			</div>
 		</div>
-		{% for p in program %}
+		
 		<div class="card-group">
+			{% for p in program %}
 			  <div class="card">
 			    <img src="{{p.image.url}}" class="card-img-top" alt="...">
 			    <div class="card-body">
@@ -180,10 +185,10 @@
 			      
 			    </div>
 			  </div>
-			  
+			  {% endfor %}
 			 
 		</div>
-		{% endfor %}
+		
 	 
 
 	
@@ -244,7 +249,7 @@
 				<div class="widget">
 					<h5 class="widgetheading">Other Important Links</h5>
 					<ul class="link-list">
-						<li><a href="#">Latest Events</a></li>
+						<li><a href="https://pu.edu.np/">POKHARA UNIVERSITY, NEPAL</a></li>
 						<li><a href="#">Terms and conditions</a></li>
 						<li><a href="#">Privacy policy</a></li>
 						<li><a href="#">Career</a></li>

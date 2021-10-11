@@ -25,6 +25,7 @@ urlpatterns = [
     path('book/',include('books.urls')),
     path('',include('home.urls')),
     path('member/', include('member.urls')),
+    path('about/', include('about.urls')),
 
 ]
 urlpatterns+= staticfiles_urlpatterns()

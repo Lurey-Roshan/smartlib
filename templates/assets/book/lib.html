@@ -55,11 +55,7 @@
                             <ul class="dropdown-menu">
                                 
                                 <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                                <li><a href="{% url 'create_level'%}">Add Level</a></li>
-                                <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-                                <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-                                <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
-                                
+                                <li><a href="{% url 'create_program'%}">Add Program</a></li>
 
                             </ul>
                         </li>
@@ -101,7 +97,7 @@
 							<div class="col-md-12">
 								<div class="container-fluid">
     <br>
-            <div class="container-fluid ">
+            <div class="container">
             {% include 'partial/messages.html' %}
             <button onclick="Show_form()" id='s_btn'>Search</button>
 

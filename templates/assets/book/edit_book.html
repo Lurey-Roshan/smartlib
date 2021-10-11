@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CCT | BooK Detail</title>
+<title>CCT | Edit Book</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://webthemez.com" />
@@ -55,10 +55,7 @@
 		                        <ul class="dropdown-menu">
 		                            
 		                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
-		                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
-		                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-		                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-		                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
+		                            <li><a href="{% url 'create_program'%}">Add Program</a></li>
 		                            
 
 		                        </ul>
@@ -96,12 +93,14 @@
 
 <br>
 {% if user.is_administrator %}
-<div style="margin-left:160px">
-	<form method="POST" onSubmit="if(!confirm('Are You sure to Update?')){return false;}">
+<div class="container">
+	<div class="container" >
+	<form method="POST" onSubmit="if(!confirm('Are You sure to Update?')){return false;}"enctype="multipart/form-data">
 	{{form.as_p}}	
 	{% csrf_token%}
 	<input type="submit" class="ui button primary" value="Update" >
 </form>
+</div>
 </div>
 {% else %}
 <div class="container">

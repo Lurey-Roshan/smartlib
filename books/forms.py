@@ -1,8 +1,8 @@
 from django import forms  
 #from books.models import Book
-from books.models import Book, Faculty, Level, Semester, Program
+from books.models import Book ,Program # Faculty, Level, Semester, Program
 
-class FacultyForm(forms.ModelForm):
+'''class FacultyForm(forms.ModelForm):
 	class Meta:
 		model=Faculty
 		fields = "__all__"  
@@ -15,7 +15,7 @@ class LevelEditForm(forms.ModelForm):
 	class Meta:
 		model=Level
 		fields="__all__"
-
+'''
 class BookForm(forms.ModelForm):
 	class Meta:
 		model=Book
@@ -23,7 +23,7 @@ class BookForm(forms.ModelForm):
 		widgets={
 		model.cover_pic:forms.ImageField(required=False)
 		}
-
+'''
 class SemForm(forms.ModelForm):
 	class Meta:
 		model=Semester
@@ -33,16 +33,25 @@ class ProgramForm(forms.ModelForm):
 	class Meta:
 		model=Program
 		fields="__all__"
-
+'''
 class EditBookForm(forms.ModelForm):
 	class Meta:
 		model=Book
-		fields=['book_name','author','edition','published_By','cover_pic']
+		fields="__all__"
 
 
-class SearchForm(forms.ModelForm):
+class ProgramForm(forms.ModelForm):
 	class Meta:
-		model=Book
-		fields=['level','faculty','program','sem','book_name','edition','author', 'published_By']
+		model=Program
+		fields="__all__"
+		widgets={
+		model.pic:forms.ImageField(required=False)
+		}
+
+
+class ProgramEditForm(forms.ModelForm):
+	class Meta:
+		model=Program
+		fields="__all__"
 		
 

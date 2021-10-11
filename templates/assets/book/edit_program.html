@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CCT | Users</title>
+<title>CCT | Edit Program</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://webthemez.com" />
@@ -48,29 +48,31 @@
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
-                        <li ><a href="{% url 'home' %}">Home</a></li> 
+                        <li ><a href="{% url 'home' %}">Home</a></li>
+                        {%if user.is_administrator%} 
+						 <li class="dropdown active">
+                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret "></b></a>
+                                <ul class="dropdown-menu">
+                                    
+                                    <li><a href="{% url 'create_book'%}">Add Book</a></li>
+                                    <li><a href="{% url 'create_program'%}">Add Program</a></li>
+                                    
+                                    
 
-						 <li class="dropdown ">
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                
-                                <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                                
-                                
-
-                            </ul>
+                                </ul>
                         </li> 
+                        {%endif %}
 						<li ><a href="{% url 'course'%}">Courses</a></li>
                         <li ><a href="{% url 'index' %}">Library</a></li>
                         <li><a href="{% url 'contact'%}">Contact</a></li>
-                        {% if user.is_authenticated%}
+                        {%if user.is_authenticated %}
                             {%if user.is_administrator%}
-                                <li class="active"><a href="{% url 'users'%}">Users</a></li>
-                            {%endif %}
-                        <li><a href="{% url 'log_out'%}">{{request.user.username}} Logout</a></li>
+                                <li><a href="{% url 'users'%}">Users</a></li>
+                            {% endif %}
+                            <li><a href="{% url 'log_out'%}">{{request.user.username}} Logout</a></li>
                         {% else %}
-                        <li><a href="{%url 'login'%}">Login</a></li>
-                        <li><a href="{% url 'register'%}">Register</a></li>
+                            <li><a href="{%url 'login'%}">Login</a></li>
+                            <li><a href="{% url 'register'%}">Register</a></li>
                         {%endif %}
                         
                     </ul>
@@ -79,77 +81,36 @@
         </div>
 	</header>
 	<!-- end header -->
-	<section id="inner-headline">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12">
-				<h2 class="pageTitle">Users</h2>
-			</div>
-		</div>
-	</div>
-	</section>
-
-
-<div class="container ">
-{% include 'partial/messages.html' %}
-</div>
+<section id="inner-headline">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="pageTitle">Edit Program</h2>
+            </div>
+        </div>
+    </div>
+    </section>
 <br>
+{%if user.is_administrator%}
 <div class="container">
-{% if user.is_administrator%}
-	{% if users %}
-		
-			<table class="u-table">
-				<tr>
-					<th>Username</th>
-                    <th>Is Administrator</th>
-                    <th>Is Student</th>
-					<th>Email</th>
-					<th>Remarks</th>
-                    {% if user.is_superuser%}
-                    <th>Action</th>
-					{%endif%}
-				</tr>
-				{% for u in users %}
-				<tr>
-                    {% if user.superuser%}
-                        {% if user.username != u.username%}
-                            < i am super user?
-                        
-            					<td><a href="{% url 'user_detail' u.id %}">{{u.username}}</a></td>
-                                <td>{{u.is_administrator}}</td>
-                                <td>{{u.is_student}}</td>
-            					<td>{{u.email}}</td>
-            					<td><a href="{% url 'del_user' u.id %}" onclick="if(!confirm('Are You sure to Delete User?')){return false;}">Delete</a>/
-                                <a href="{% url 'edit_user' u.id%}">Edit</a></td>
-                        {%endif%}
-                    {% else %}
-                            {% if user.username != u.username%}
-
-                                {% if u.is_superuser == False %}
-
-                                    <td><a href="{% url 'user_detail' u.id %}">{{u.username}}</a></td>
-                                    <td>{{u.is_administrator}}</td>
-                                    <td>{{u.is_student}}</td>
-                                    <td>{{u.email}}</td>
-                                    <td><a href="{% url 'del_user' u.id %}" onclick="if(!confirm('Are You sure to Delete User?')){return false;}">Delete</a>/
-                                    <a href="{% url 'edit_user' u.id%}">Edit</a></td>
-                                {% endif %}
-                            {% endif %}
-                    {% endif%}
-				</tr>
-				{% endfor %}
-			</table>
-			
-		
-	{% else %}
-	<p >No users registered yet. </p>
-	{% endif %}
+    <div class="container" >
+            
+                {% if form %}
+                    <form onSubmit="if(!confirm('Are You sure to Update?')){return false;}" method="POST" enctype="multipart/form-data">
+                        {{form.as_p}}
+                        {%csrf_token%}
+                        <input type="submit" name="Update">
+                    </form>
+                {% endif %}
+    </div>
+</div>
+{% else%}
+<div class="container">
+    <p>You are not authorized</p>
+</div>
 {%endif %}
 
-</div>
 <br>
-
-
 
     <!-- Footer -->
     <footer>
@@ -231,4 +192,3 @@
 </body>
 </html>
     <!-- End Footer -->
-

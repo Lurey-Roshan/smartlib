@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CCT | Add Level</title>
+<title>CCT | Add Sem</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://webthemez.com" />
@@ -48,22 +48,22 @@
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
-                        <li ><a href="{% url 'home' %}">Home</a></li>
-                        {%if user.is_administrator%} 
+                        <li ><a href="{% url 'home' %}">Home</a></li> 
+                        {%if user.is_administrator%}
 						 <li class="dropdown active">
-                                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret "></b></a>
-                                <ul class="dropdown-menu">
-                                    
-                                    <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                                    <li><a href="{% url 'create_level'%}">Add Level</a></li>
-                                    <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-                                    <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-                                    <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
-                                    
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret "></b></a>
+                            <ul class="dropdown-menu">
+                                
+                                <li><a href="{% url 'create_book'%}">Add Book</a></li>
+                                <li><a href="{% url 'create_level'%}">Add Program</a></li>
+                                <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
+                                <li><a href="{% url 'create_program'%}">Add Program</a></li> 
+                                <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
+                                
 
-                                </ul>
+                            </ul>
                         </li> 
-                        {%endif %}
+                        {% endif %}
 						<li ><a href="{% url 'course'%}">Courses</a></li>
                         <li ><a href="{% url 'index' %}">Library</a></li>
                         <li><a href="{% url 'contact'%}">Contact</a></li>
@@ -87,26 +87,27 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="pageTitle">Add Level</h2>
+                <h2 class="pageTitle">Add Faculty</h2>
             </div>
         </div>
     </div>
     </section>
 <br>
-{%if user.is_administrator%}
+{% if user.is_administrator %}
 <div class="container">
-<p>Enter Level</p>
-    {% if form %}
-        <form action="" method="POST">
-            {{form.as_p}}
-            {%csrf_token%}
-            <input type="submit" name="Create">
-        </form>
-    {% endif %}
-
+    <p>Please Select The Level First and Enter Faculty</p>
+	{% if form %}
+<form action="" method="POST">
+	{{form.as_p}}
+	{%csrf_token%}
+	<input type="submit" name="Create">
+</form>
+{% endif %}
 </div>
+{%endif%}
 
-{%endif %}
+
+
 
 <br>
 

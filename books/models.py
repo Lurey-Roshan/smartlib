@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import FileExtensionValidator
 
 # Create your models here.
+'''
 class Level(models.Model):
 	name=models.CharField(max_length=25)
 	def __str__(self):
@@ -47,11 +48,8 @@ class Book(models.Model):
 	def __str__(self):
 		return self.book_name
 
-
-
-
-
 '''
+
 faculty_choice=[
 	('None','None'),
 	('Management','Management'),
@@ -70,12 +68,14 @@ level_choice=[
 
 ]
 program_choice=[
+	('None','None'),
 	('Comuter Engineering','Computer Engineering'),
 	('MBS','MBS'),
 	('BBA','BBA'),
 	('MBBS','MBBS')
 ]
 year_choice=[
+	('None','None'),
 	('first Year','first Year'),
 	('Second Year','Second Year'),
 	('First Sem','First Sem'),
@@ -87,11 +87,22 @@ year_choice=[
 class Book(models.Model):
 	faculty=models.CharField(max_length=200, choices=faculty_choice, default='None')
 	level=models.CharField(max_length=200, choices=level_choice,default='None')
-	program=models.CharField(max_length=200, choices=program_choice)
-	year=models.CharField(max_length=200, choices=year_choice)
-	name=models.CharField(max_length=255)
+	program=models.CharField(max_length=200, choices=program_choice,default='None')
+	sem=models.CharField(max_length=200, choices=year_choice,default='None')
+	book_name=models.CharField(max_length=255)
 	edition=models.CharField(max_length=25, blank=True, null=True)
 	author=models.CharField(max_length=100)
 	published_By=models.CharField(max_length=100, blank=True)
-	file=models.FileField(upload_to='uploads/')
-	'''
+	cover_pic=models.ImageField(upload_to='image/', default='image/pdf.png')
+	file=models.FileField(upload_to='uploads/',validators=[FileExtensionValidator( ['pdf'] )])
+	def __str__(self):
+		return self.book_name
+
+
+class Program(models.Model):
+	name=models.CharField(max_length=255)
+	pic=models.ImageField(upload_to='image/', default='image/pdf.png')
+	text=models.TextField()
+
+	def __str__(self):
+		return self.name	

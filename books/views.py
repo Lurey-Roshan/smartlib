@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from books. models import   Level,Faculty ,Book,Program,Semester
+from books. models import  Book,Program #, Level,Faculty ,Program,Semester
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from books.forms import FacultyForm, LevelForm, BookForm, SemForm, ProgramForm, EditBookForm,LevelEditForm,SearchForm
+from books.forms import BookForm,EditBookForm,ProgramForm,ProgramEditForm #, FacultyForm, LevelForm,  SemForm, ProgramForm, EditBookForm,LevelEditForm,SearchForm
 
 from PyPDF2 import PdfFileReader
 from django.http import FileResponse, Http404
@@ -31,12 +31,10 @@ def home(request ):
 
 def courses(request):
 	program=Program.objects.all()
-	faculty=Faculty.objects.all()
-	level=Level.objects.all()
+	
 	context={
 		'program':program,
-		'faculty':faculty,
-		'level':level
+		
 	}
 	#return render(request, 'books/course.html', context)
 	return render(request, 'assets/book/course.html',context)
@@ -79,10 +77,10 @@ def create_book(request):
 	}
 	
 			
-	
-
 	#return render(request, 'books/create_book.html',context)
 	return render(request, 'assets/book/createbook.html',context)
+	#return render(request, 'createbook.html',context)
+
 
 
 @login_required(login_url='/member/login')
@@ -98,7 +96,7 @@ def edit_book(request, id):
 	book=get_object_or_404(Book, pk=id)
 	form=EditBookForm(instance=book)
 	if request.method=="POST":
-		form=EditBookForm(request.POST, instance=book)
+		form=EditBookForm(request.POST,request.FILES, instance=book)
 		if form.is_valid():
 			form.save()
 			messages.add_message(request,messages.SUCCESS,"Updated Successfully")
@@ -112,6 +110,59 @@ def edit_book(request, id):
 	return render(request,'assets/book/edit_book.html', context)
 
 
+@login_required(login_url='/member/login')
+def create_program(request):
+	form=ProgramForm()
+	if request.method=="POST":
+		form=ProgramForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request,messages.SUCCESS,"Program Created Successfully")
+			return redirect('course')
+		else:
+			messages.add_message(request,messages.ERROR,"Program Cannot Created")
+			form=ProgramForm()
+	context={
+		'form': form
+	}
+	#return render(request, 'books/create_program.html',context)
+	return render(request, 'assets/book/add_program.html',context)
+
+
+
+
+@login_required(login_url='/member/login')
+def edit_program(request, id):
+	program=get_object_or_404(Program, pk=id )
+	form=ProgramEditForm(instance=program)
+	if request.method=="POST":
+		form=ProgramEditForm(request.POST,request.FILES, instance=program)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request,messages.SUCCESS,"Updated Successfully")
+			return HttpResponseRedirect(reverse("program_detail", kwargs={'id':program.pk}))
+			#return redirect('course')
+		else:
+			messages.add_message(request,messages.ERROR,"Program Cannot Edited")
+			form=ProgramEditForm(instance=program)
+	context={
+		'form':form
+	}
+	return render(request,'assets/book/edit_program.html',context)
+
+@login_required(login_url='/member/login')
+def delete_program(request, id):
+	program=get_object_or_404(Program, pk=id)
+	program.delete()
+	return redirect('course')
+
+def program_detail(request,id):
+	program=get_object_or_404(Program, pk=id)
+	context={
+		'program':program
+	}
+	return render(request,'assets/book/coursedetail.html', context)
+'''
 @login_required(login_url='/member/login')
 def level_index(request):
 	level=Level.objects.all()
@@ -245,7 +296,7 @@ def delete_faculty(request, id):
 	faculty=get_object_or_404(Faculty, pk=id)
 	faculty.delete()
 	return redirect('course')
-
+'''
 
 
 def view_pdf(request, id):

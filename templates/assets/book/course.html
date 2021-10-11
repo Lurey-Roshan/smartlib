@@ -53,10 +53,7 @@
 	                        <ul class="dropdown-menu">
 	                            
 	                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
-	                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
-	                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-	                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-	                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
+	                            <li><a href="{% url 'create_program'%}">Add Program</a></li>
 	                            
 
 	                        </ul>
@@ -106,71 +103,46 @@
 						</div>
 						 
 		<!-- Info Blcoks -->
-        <div class="container-fluid">
+        <div class="container">
     {% include 'partial/messages.html' %}
 </div>
 {% if user.is_administrator %}
 
-<div class="container-fluid">
+<div class="container">
     <p>We offer following Courses</p>
-        {% for l in level %}
-            <ul>
-                <strong>{{l.name}} <a href="{% url 'delete_level' l.id %}" onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a></strong>
-            </ul>
-            
-            <div class="container"  id="faculty">
-                {% for f in faculty %}
-                    {%  if f.level.name == l.name%}
-                        <ul>{{f.name}} <a href="{% url 'delete_faculty' f.id %}"onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a></ul>
-                        <div class="container-fluid" style="display:block" id='program'>
-                            {% for p in program %}
-                            {% if p.faculty.name == f.name %}
-                            <div class="container" style="display:block;">
-                                <ul><small>{{p.prgm}}<a href="{% url 'delete_program' p.id %}" onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a></small></ul>
-                            </div>
-                                
-                            {% endif %}
-                        {%endfor%}
-                        </div>
-                        
-                    {% endif %}
-                {% endfor %}
-            </div>
-        <br>
-        {% endfor%}
-    
-
+    	
+    		
+    		
+    		<div class="row service-v1 margin-bottom-40">
+    			{% for p in program %}
+	            <div class="col-md-4 md-margin-bottom-40">
+	               <img class="img-responsive" src="{{p.pic.url}}" alt="">   
+	                <h3><a href="{%url 'program_detail' p.id%}">{{p.name}}</a></h3>
+	                <p>{{p.text}}</p>
+	                <a href="{% url 'delete_program' p.id %}" onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a>
+	                <a href="{% url 'edit_program' p.id%}">Edit</a>        
+	            </div>
+	            {% endfor%}
+        	</div>
+    	  
 
 </div>
 
 {% else %}
-<div class="container-fluid">
+<div class="container">
     <p>We offer following Courses</p>
-        {% for l in level %}
-            <ul>
-                <strong>{{l.name}}</strong>
-            </ul>
-            
-            <div class="container"  id="faculty">
-                {% for f in faculty %}
-                    {%  if f.level.name == l.name%}
-                        {{f.name}}
-                        <div class="container-fluid" style="display:block" id='program'>
-                            {% for p in program %}
-                            {% if p.faculty.name == f.name %}
-                            <div class="container" style="display:block;">
-                                <ul><small>{{p.prgm}}</small></ul>
-                            </div>
-                                
-                            {% endif %}
-                        {%endfor%}
-                        </div>
-                        
-                    {% endif %}
-                {% endfor %}
-            </div>
-        <br>
-        {% endfor%}
+        
+    		<div class="row service-v1 margin-bottom-40">
+    			{% for p in program %}
+	            <div class="col-md-4 md-margin-bottom-40">
+	               <img class="img-responsive" src="{{p.pic.url}}" alt="">   
+	                <h3><a href="{%url 'program_detail' p.id%}">{{p.name}}</a></h3>
+	                <p>{{p.text}}</p>
+	                  
+	            </div>
+	            {% endfor%}
+        	</div>
+    	
 {% endif%}
 
 
