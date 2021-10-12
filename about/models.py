@@ -11,7 +11,7 @@ class AboutUS(models.Model):
 class OurTeam(models.Model):
 	name=models.CharField(max_length=255)
 	designation=models.CharField(max_length=255)
-	pic=models.ImageField(upload_to='team/')
+	pic=models.ImageField(upload_to='team/', default='team/man.png')
 
 	def __str__(self):
 		return self.name
