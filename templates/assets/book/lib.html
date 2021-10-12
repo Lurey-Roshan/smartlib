@@ -20,7 +20,21 @@
 <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+<style type="text/css">
+    .lib{
+    background-image: url("{% static 'images/library.jpg' %}");
+    width: 100%;
+    align-content: center;
 
+    }
+    .u-table{
+        margin-left: auto;
+        margin-right: auto;
+        opacity: 0.8;
+        
+    }
+
+</style>
 </head>
 <body>
 <div id="wrapper" class="home-page">
@@ -48,6 +62,7 @@
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
+                        <li><a href="{% url 'home_view' %}">About Us</a></li>
                         <li ><a href="{% url 'home' %}">Home</a></li>
                         {%if user.is_administrator%} 
 						 <li class="dropdown">
@@ -113,7 +128,7 @@
             </form>
             <br>
             <button onclick="hide_form()" id='h_btn'style="display:none;float:right;">Hide</button>
-            <div class="lib">
+            <div class=" container lib">
                 <table class="u-table" >
                     <tr>
                         <th>CoverImage</th>
@@ -134,7 +149,7 @@
                     
                         {%for b in filter.qs %}
                         <tr>
-                            <td><img src="{{b.cover_pic.url}}" alt="Image"style="width:20px;"></td>
+                            <td><img src="{{b.cover_pic.url}}" alt="Image"style="width:100px;"></td>
                             <td><a href="{% url 'book_detail' b.id %}">{{b.book_name}}</a></td>
                             <td>{{b.author}}</td>
                             <td>{{b.published_By}}</td>
