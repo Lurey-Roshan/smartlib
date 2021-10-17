@@ -4,15 +4,15 @@
 
 }
 
-table, th, td {
+table  {
         border: 1px solid black;
         border-collapse: collapse;
         align-content: center;
         text-align: center;
-        background-color:#D3D3D3;
+        background-color:#4B0082;
         width: 100%;
-        opacity: 0.5;
-
+        opacity: 0.9;
+        color: green;
         }
 
 body{
@@ -25,3 +25,23 @@ body{
         opacity: 0.8;
         
     }
+th{
+        color: #FFEBCD;
+        font-weight: bold;
+        border: 1px solid black;
+        border-collapse: collapse;
+        align-content: center;
+        text-align: center;
+}
+td{
+        color: #FFEBCD;
+        font-weight: Normal;
+        border: 1px solid black;
+
+        border-collapse: collapse;
+        align-content: center;
+        text-align: center;
+}
+a{
+       color: #00FFFF; 
+}

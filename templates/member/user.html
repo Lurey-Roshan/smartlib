@@ -48,6 +48,8 @@
                 </div>
                 <div class="navbar-collapse collapse ">
                     <ul class="nav navbar-nav">
+
+                        <li  ><a href="{% url 'home_view' %}">About Us</a></li> 
                         <li ><a href="{% url 'home' %}">Home</a></li> 
 
 						 <li class="dropdown ">
@@ -55,7 +57,7 @@
                             <ul class="dropdown-menu">
                                 
                                 <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                                
+                                <li><a href="{% url 'create_program'%}">Add Program</a></li>
                                 
 
                             </ul>
@@ -104,16 +106,19 @@
                     <th>Is Administrator</th>
                     <th>Is Student</th>
 					<th>Email</th>
-					<th>Remarks</th>
                     {% if user.is_superuser%}
-                    <th>Action</th>
+                    {% if user.is_administrator%}
+					   <th>Remarks</th>
+                    
+                    
+                    {%endif%}
 					{%endif%}
 				</tr>
 				{% for u in users %}
 				<tr>
                     {% if user.superuser%}
                         {% if user.username != u.username%}
-                            < i am super user?
+                            
                         
             					<td><a href="{% url 'user_detail' u.id %}">{{u.username}}</a></td>
                                 <td>{{u.is_administrator}}</td>
@@ -172,11 +177,12 @@
                 <div class="widget">
                     <h5 class="widgetheading" style="font-size: 20px;">Other Important Links</h5>
                     <ul class="link-list">
-                        <li><a href="#">Latest Events</a></li>
-                        <li><a href="#">Terms and conditions</a></li>
-                        <li><a href="#">Privacy policy</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">POKHARA UNIVERSITY, NEPAL</a></li>
+                        <li><a href="https://tribhuvan-university.edu.np/">TRIBHUVAN UNIVERSITY,NEPAL</a></li>
+                        <li><a href="https://ku.edu.np/">KATHMANDU UNIVERSITY, NEPAL</a></li>
+                        <li><a href="http://moe.gov.np/">MINISTRY OF EDUCATION,NEPAL</a></li>
+                        <li><a href="http://www.nepalpharmacycouncil.org.np/">NEPAL PHARMACY COUNCIL</a></li>
+                        <li><a href="https://nhpc.gov.np/">HEALTH PROFESSIONAL COUNCIL</a></li>
                     </ul>
                 </div>
             </div>

@@ -28,7 +28,7 @@ from books.filters import BookFilter
 def home(request ):
 	return render(request, 'home.html')
 #for book
-
+@login_required(login_url='/member/login')	
 def courses(request):
 	program=Program.objects.all()
 	
@@ -38,7 +38,7 @@ def courses(request):
 	}
 	#return render(request, 'books/course.html', context)
 	return render(request, 'assets/book/course.html',context)
-	
+
 class BookListView(ListView):
 	model=Book
 	template_name='assets/book/lib.html'

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from home.models import About_Us, Mission,Program, Message_from_Principal
 # Create your views here.
 from home.forms import ContactForm

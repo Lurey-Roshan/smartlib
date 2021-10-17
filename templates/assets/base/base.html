@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>CCT | BooK Detail</title>
+<title>CCT | {% block title%}{% endblock title%}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 <meta name="author" content="http://webthemez.com" />
@@ -34,111 +34,16 @@
     </div>
   </div>
 </div>
-	<!-- start header -->
-	<header>
-        <div class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{% url 'home'%}"><img src="{% static 'img/logo.png'%}" alt="logo"/>Crimson</a>
-                </div>
-                <div class="navbar-collapse collapse ">
-                    <ul class="nav navbar-nav">
-                        <li ><a href="{% url 'home' %}">Home</a></li> 
-						 <li class="dropdown ">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            
-                            <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                            <li><a href="{% url 'create_level'%}">Add Level</a></li>
-                            <li><a href="{% url 'create_faculty'%}">Add Faculty</a></li>
-                            <li><a href="{% url 'create_program'%}">Add Program</a></li> 
-                            <li><a href="{% url 'create_sem'%}">Add Semester</a></li>
-                            
+<!-- Start header -->
+{% block header %}
 
-                        </ul>
-                    </li> 
-						<li ><a href="{% url 'course'%}">Courses</a></li>
-                        <li ><a href="{% url 'index' %}">Library</a></li>
-                        <li><a href="{% url 'contact'%}">Contact</a></li>
-                        <li><a href="{% url 'users'%}">Users</a></li>
-                        <li><a href="{%url 'login'%}">Login</a></li>
-                        <li><a href="{% url 'register'%}">Register</a></li>
-                        <li><a href="{% url 'log_out'%}">Logout</a></li>
-                        
-                    </ul>
-                </div>
-            </div>
-        </div>
-	</header>
+{% endblock header%}
 	<!-- end header -->
+{% block body%}
 
+{%endblock body%}
+{%include 'assets/base/footer.html' %}
 
-
-
-
-
-
-    <!-- Footer -->
-    <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="widget">
-                    <h5 class="widgetheading" style="font-size: 20px;">Our Contact</h5>
-                    <address>
-                    <strong>Crimson College of Technology</strong><br>
-                    JC Main Road, Near Silnile tower<br>
-                     Pin-21542 NewYork US.</address>
-                    <p>
-                        <i class="icon-phone"></i> (123) 456-789 - 1255-12584 <br>
-                        <i class="icon-envelope-alt"></i> email@domainname.com
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="widget">
-                    <h5 class="widgetheading" style="font-size: 20px;">Other Important Links</h5>
-                    <ul class="link-list">
-                        <li><a href="#">Latest Events</a></li>
-                        <li><a href="#">Terms and conditions</a></li>
-                        <li><a href="#">Privacy policy</a></li>
-                        <li><a href="#">Career</a></li>
-                        <li><a href="#">Contact us</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            
-        </div>
-    </div>
-    <div id="sub-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="copyright">
-                        <p>
-                            <span>&copy; Crimson 2021 All right reserved. <br/></span> 
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="social-network">
-                        <li><a href="#" data-placement="top" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#" data-placement="top" title="Google plus"><i class="fa fa-google-plus"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    </footer>
 </div>
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
 <!-- javascript
