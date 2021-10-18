@@ -1,12 +1,13 @@
 {% extends 'assets/base/base.html'%}
 {%load static %}
 {% block title%}
-    ADD PROGRAM
+	Create Handsout
 
 {% endblock title %}
 
 {% block header%}
-<!-- start header -->
+
+ <!-- start header -->
     <header>
         <div class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -28,9 +29,9 @@
                             <ul class="dropdown-menu">
                                 
                                 <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                                <li><a href="{% url 'create_program'%}">Add Program</a></li> 
+                                <li><a href="{% url 'create_program'%}">Add Program</a></li>
                                 <li><a href="{%url 'create_handsout' %}">Add Handsout</a></li>
-                                <li><a href="{%url 'create_oldquestion' %}">Add OldQuestion</a></li>
+                                <li><a href="{%url 'create_oldquestion' %}">Add OldQuestion</a></li> 
                                 
                                 
 
@@ -68,33 +69,45 @@
     </header>
     <!-- end header -->
 
-{% endblock header%}
+
+
+{%endblock header %}
 
 {% block body %}
+
+
 <section id="inner-headline">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="pageTitle">Add Program</h2>
-            </div>
-        </div>
-    </div>
-    </section>
-    <br>
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="pageTitle">Add HandsOut</h2>
+			</div>
+		</div>
+	</div>
+	</section>
 {% if user.is_administrator %}
 <div class="container">
-    <div class="container">
-        {% if form %}
-        <form action="" method="POST"enctype="multipart/form-data">
-            {{form.as_p}}
-            {%csrf_token%}
-            <input type="submit" name="Create">
-        </form>
-    {% endif %}
-    </div>
-    
+	<div class="container" >
+		{% include 'partial/messages.html' %}
+		<div><p>Please Select the options and enter other details as per requirement. </p>
+		</div>
+		<div >
+			{% if form %}
+		<form  method="POST" enctype="multipart/form-data">
+			{{form.as_p}}
+			<p><small><i>Note*: Make sure the file is pdf.</i> </small></p>
+			{%csrf_token%}
+			<input type="submit" name="submit">
+		</form>
+		{% endif %}
+	</div>
 </div>
-{% endif %}
+</div>
+{% endif%}
 <br>
+
+
+
+
 
 {%endblock body%}

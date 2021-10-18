@@ -1,7 +1,7 @@
 {% extends 'assets/base/base.html'%}
 {%load static %}
 {% block title%}
-    Library
+	Handsout
 
 {% endblock title %}
 <style type="text/css">
@@ -19,7 +19,6 @@
     }
 
 </style>
-
 {% block header%}
 
 <!-- start header -->
@@ -39,7 +38,7 @@
                         
                         <li ><a href="{% url 'home' %}">Home</a></li> 
                         {%if user.is_administrator%}
-                         <li class="dropdown ">
+                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret "></b></a>
                             <ul class="dropdown-menu">
                                 
@@ -54,7 +53,7 @@
                         </li> 
                         {%endif%}
                         <li ><a href="{% url 'course'%}">Courses</a></li>
-                        <li class="dropdown active ">
+                        <li class="dropdown active">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Library <b class="caret"></b></a>
                             <ul class="dropdown-menu">
                                 
@@ -86,6 +85,8 @@
 
 
 
+
+
 {%endblock header %}
 
 {% block body %}
@@ -93,7 +94,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="pageTitle">Library</h2>
+                <h2 class="pageTitle">Library | Handsout</h2>
             </div>
         </div>
     </div>
@@ -125,15 +126,15 @@
             <div class=" container lib">
                 <table class="u-table" >
                     <tr>
-                        <th>CoverImage</th>
-                        <th>Name</th>
-                        <th>Author</th>
-                        <th>Published By</th>
-                        <th>Edition</th>
-                        <th>Level</th>
+                        
                         <th>Faculty</th>
+                        <th>Level</th>
                         <th>Program</th>
-                        <th>Sem/Year</th>
+                        <th>Semester</th>
+                        <th>Subject</th>
+                        <th>Chapter</th>
+                        <th>Note By</th>
+                        
                         {% if  user.is_administrator %}
                         <th>Remarks</th>
                         {%endif%}
@@ -143,20 +144,20 @@
                     
                         {%for b in filter.qs %}
                         <tr>
-                            <td><img src="{{b.cover_pic.url}}" alt="Image"style="width:100px;"></td>
-                            <td><a href="{% url 'book_detail' b.id %}">{{b.book_name}}</a></td>
-                            <td>{{b.author}}</td>
-                            <td>{{b.published_By}}</td>
-                            <td>{{b.edition}}</td>
-                            <td>{{b.level}}</td>
+                            
                             <td>{{b.faculty}}</td>
+                            <td>{{b.level}}</td>
                             <td>{{b.program}}</td>
                             <td>{{b.sem}}</td>
+                            <td>{{b.subject}}</td>
+                            <td>{{b.note_by}}</td>
+                            <td><a href="{{b.file.url}}">{{b.chapter}}</a></td>
+                            
                             
                             {%if user.is_authenticated%}
                             {%if user.is_administrator%}
-                            <td><a href="{% url 'edit_book' b.id %}">Edit</a>\
-                            <a href="{% url 'delete_book' b.id %}"onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a>
+                            <td><a href="{% url 'edit_handsout' b.id %}">Edit</a>\
+                            <a href="{% url 'delete_handsout' b.id %}"onclick="if(!confirm('Are You sure to Delete?')){return false;}">Delete</a>
 
                             {%endif%}
                             {%endif%}
@@ -178,7 +179,7 @@
             {%if user.is_authenticated%}
             {%if user.is_administrator%}
 
-            <button type="submit" style="background-color:#00FFFF;"><a href="{% url 'create_book' %}" style="color:#FFF5EE;">Create New Book</a></button>
+            <button type="submit" style="background-color:#00FFFF;"><a href="{% url 'create_handsout' %}" style="color:#FFF5EE;">Create New Handsout</a></button>
             {%endif%}
             {%endif%}
             <br> 
@@ -215,4 +216,3 @@
     </div>
     </section>
 {%endblock body%}
-

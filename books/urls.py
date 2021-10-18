@@ -1,7 +1,7 @@
 from django.urls import path
 from books import views
 from django.contrib.auth.decorators import login_required
-from books.views import BookListView
+from books.views import BookListView,OldQuestionListView,HandsOutListView
 urlpatterns = [
     
     #path('', views.index, name='index'),
@@ -25,6 +25,16 @@ urlpatterns = [
     path('program/<id>/edit', views.edit_program , name="edit_program"),
     path('program/<id>/detail', views.program_detail , name="program_detail"),
     #path('faculty/<id>/delete', views.delete_faculty , name="delete_faculty"),
+    #for handsout and oldquestion
+    path('lib/oldquestion/create-oldquestion', views.create_oldquestion  ,name='create_oldquestion'),
+    path('lib/oldquestion',login_required(OldQuestionListView.as_view()) ,name='oldquestion'),
+    path('lib/oldquestion/<id>/edit', views.edit_oldQuestion  ,name='edit_oldquestion'),
+    path('lib/oldquestion/<id>/delete', views.delete_oldquestion  ,name='delete_oldquestion'),
+    path('lib/handsout/create-handsout', views.create_handsout  ,name='create_handsout'),
+    path('lib/handsout', login_required(HandsOutListView.as_view())  ,name='handsout'),
+    
+    path('lib/handsout/<id>/edit', views.edit_handsout  ,name='edit_handsout'),
+    path('lib/handsout/<id>/delete', views.delete_handsout  ,name='delete_handsout'),
     
 
     

@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
-from books. models import  Book,Program #, Level,Faculty ,Program,Semester
+from books. models import  Book,Program,OldQuestion,HandsOut #, Level,Faculty ,Program,Semester
 from django.http import HttpResponseRedirect
 from django.http import HttpResponse
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
-from books.forms import BookForm,EditBookForm,ProgramForm,ProgramEditForm #, FacultyForm, LevelForm,  SemForm, ProgramForm, EditBookForm,LevelEditForm,SearchForm
+from books.forms import BookForm,EditBookForm,ProgramForm,ProgramEditForm,OldQuestionForm,OldQuestionEditForm,HandsOutForm,HandsOutEditForm #, FacultyForm, LevelForm,  SemForm, ProgramForm, EditBookForm,LevelEditForm,SearchForm
 
 from PyPDF2 import PdfFileReader
 from django.http import FileResponse, Http404
@@ -20,7 +20,7 @@ from reportlab.pdfgen import canvas
 #new 
 from django.views import View
 from django.views.generic import ListView
-from books.filters import BookFilter
+from books.filters import BookFilter,OldQuestionFilter,HandsOutFilter
 
 
 
@@ -306,3 +306,120 @@ def view_pdf(request, id):
 		response = HttpResponse(pdf.read(),content_type='application/pdf')
 		response['Content-Disposition'] = 'filename=book.book_name.pdf'
 		return response
+
+#FOR HANDSOUT AND OLDQUESTION
+
+
+@login_required(login_url='/member/login')
+def create_oldquestion(request):
+	form=OldQuestionForm()
+	if request.method=="POST":
+		form=OldQuestionForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request,messages.SUCCESS,"Old Question Added Successfully")
+			return redirect('oldquestion')
+
+		else:
+			form=OldQuestionForm()
+			messages.add_message(request,messages.ERROR,"Please Fill Form Correctly.")
+	context={
+	'form':form
+	}
+	return render(request,'assets/book/createoldquestion.html',context)
+
+class OldQuestionListView(ListView):
+	model=OldQuestion
+	template_name='assets/book/oldquestion.html'
+	
+	def get_context_data(self, **kwargs):
+		context=super().get_context_data(**kwargs)
+		context['filter']=OldQuestionFilter(self.request.GET ,queryset=self.get_queryset())
+		return context
+
+
+
+
+
+@login_required(login_url='/member/login')
+def edit_oldQuestion(request, id):
+
+	oldquestion=get_object_or_404(OldQuestion, pk=id)
+	form=OldQuestionEditForm(instance=oldquestion)
+	if request.method=="POST":
+		form=OldQuestionEditForm(request.POST,request.FILES, instance=oldquestion)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request,messages.SUCCESS,"Old Question Edited Successfully")
+			return redirect('oldquestion')
+		else:
+			messages.add_message(request,messages.ERROR,"Old Question cannot be updated")
+			form=OldQuestionEditForm(instance=oldquestion)
+	context={
+	'form':form
+	}
+	return render(request,'assets/book/editoldquestion.html', context)
+
+
+
+@login_required(login_url='/member/login')
+def delete_oldquestion(request, id):
+	oldquestion=get_object_or_404(OldQuestion, pk=id)
+	oldquestion.delete()
+	messages.add_message(request,messages.SUCCESS,"Old Question Deleted Successfully")
+
+	return redirect('oldquestion')
+
+
+@login_required(login_url='/member/login')
+def create_handsout(request):
+	form=HandsOutForm()
+	if request.method=="POST":
+		form=HandsOutForm(request.POST,request.FILES)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request,messages.SUCCESS,"HandsOut Added Successfully")
+			return redirect('handsout')
+		else:
+			form=HandsOutForm()
+			messages.add_message(request,messages.ERROR,"Please Fill Form Correctly.")
+	context={
+	'form':form
+	}
+	return render(request,'assets/book/createhandsout.html',context)
+
+
+class HandsOutListView(ListView):
+	model=HandsOut
+	template_name='assets/book/handout.html'
+	
+	def get_context_data(self, **kwargs):
+		context=super().get_context_data(**kwargs)
+		context['filter']=HandsOutFilter(self.request.GET ,queryset=self.get_queryset())
+		return context
+
+
+@login_required(login_url='/member/login')
+def edit_handsout(request, id):
+	handsout=get_object_or_404(HandsOut, pk=id)
+	form=HandsOutEditForm(instance=handsout)
+	if request.method=="POST":
+		form=HandsOutEditForm(request.POST, request.FILES, instance=handsout)
+		if form.is_valid():
+			form.save()
+			messages.add_message(request,messages.SUCCESS,"Handsout edited Successfully")
+			return redirect('handsout')
+		else:
+			messages.add_message(request,messages.ERROR,"Handsout couldnot update")
+			form=HandsOutEditForm(instance=handsout)
+	context={
+	'form':form
+	}
+	return render(request, 'assets/book/edithandout.html', context)
+
+@login_required(login_url='/member/login')
+def delete_handsout(request, id):
+	handsout=get_object_or_404(HandsOut, pk=id)
+	handsout.delet()
+	messages.add_message(request,messages.SUCCESS,"Handsout Deleted Successfully")
+	return redirect('handsout')

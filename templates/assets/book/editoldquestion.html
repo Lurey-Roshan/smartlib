@@ -1,11 +1,12 @@
 {% extends 'assets/base/base.html'%}
 {%load static %}
 {% block title%}
-    ADD PROGRAM
+	Old QUestion
 
 {% endblock title %}
 
 {% block header%}
+
 <!-- start header -->
     <header>
         <div class="navbar navbar-default navbar-static-top">
@@ -23,14 +24,14 @@
                         
                         <li ><a href="{% url 'home' %}">Home</a></li> 
                         {%if user.is_administrator%}
-                         <li class="dropdown active">
+                         <li class="dropdown ">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Add <b class="caret "></b></a>
                             <ul class="dropdown-menu">
                                 
                                 <li><a href="{% url 'create_book'%}">Add Book</a></li>
-                                <li><a href="{% url 'create_program'%}">Add Program</a></li> 
+                                <li><a href="{% url 'create_program'%}">Add Program</a></li>
                                 <li><a href="{%url 'create_handsout' %}">Add Handsout</a></li>
-                                <li><a href="{%url 'create_oldquestion' %}">Add OldQuestion</a></li>
+                                <li><a href="{%url 'create_oldquestion' %}">Add OldQuestion</a></li> 
                                 
                                 
 
@@ -68,33 +69,45 @@
     </header>
     <!-- end header -->
 
-{% endblock header%}
+
+
+
+
+{%endblock header %}
 
 {% block body %}
+
 <section id="inner-headline">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2 class="pageTitle">Add Program</h2>
-            </div>
-        </div>
-    </div>
-    </section>
-    <br>
-{% if user.is_administrator %}
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12">
+				<h2 class="pageTitle">Edit Old Question</h2>
+			</div>
+		</div>
+	</div>
+	</section>
+
+<br>
+{% if user.is_administrator or user.is_superusera %}
+
 <div class="container">
-    <div class="container">
-        {% if form %}
-        <form action="" method="POST"enctype="multipart/form-data">
-            {{form.as_p}}
-            {%csrf_token%}
-            <input type="submit" name="Create">
-        </form>
-    {% endif %}
-    </div>
-    
+	<div class="container" >
+		{% include 'partial/messages.html' %}
+		<form method="POST" onSubmit="if(!confirm('Are You sure to Update?')){return false;}"enctype="multipart/form-data">
+			{{form.as_p}}	
+			{% csrf_token%}
+			<input type="submit" class="ui button primary" value="Update" >
+		</form>
+	</div>
+</div>
+{% else %}
+<div class="container">
+	<p>You cannot edit this </p>
+	
 </div>
 {% endif %}
 <br>
+
+
 
 {%endblock body%}

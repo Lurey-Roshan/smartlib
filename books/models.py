@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
-
+import datetime
+from django.core.validators import MaxValueValidator, MinValueValidator
 # Create your models here.
 '''
 class Level(models.Model):
@@ -106,3 +107,35 @@ class Program(models.Model):
 
 	def __str__(self):
 		return self.name	
+#for oldquestion
+def current_year():
+    return datetime.date.today().year
+
+def max_value_current_year(value):
+    return MaxValueValidator(current_year())(value)
+
+
+class OldQuestion(models.Model):
+	faculty=models.CharField(max_length=200, choices=faculty_choice)
+	level=models.CharField(max_length=200, choices=level_choice)
+	program=models.CharField(max_length=200, choices=program_choice)
+	sem=models.CharField(max_length=200, choices=year_choice)
+	subject=models.CharField(max_length=255)
+	year=models.PositiveIntegerField(
+        default=current_year(), validators=[MinValueValidator(2015), max_value_current_year])
+	file=models.FileField(upload_to='uploads/oldquestion/',validators=[FileExtensionValidator( ['pdf'] )])
+
+	def __str__(self):
+		return self.subject
+
+class HandsOut(models.Model):
+	faculty=models.CharField(max_length=200, choices=faculty_choice)
+	level=models.CharField(max_length=200, choices=level_choice)
+	program=models.CharField(max_length=200, choices=program_choice)
+	sem=models.CharField(max_length=200, choices=year_choice)
+	subject=models.CharField(max_length=255)
+	chapter=models.CharField(max_length=255)
+	note_by=models.CharField(max_length=255)
+	file=models.FileField(upload_to='uploads/handsout/',validators=[FileExtensionValidator( ['pdf'] )])
+	def __str__(self):
+		return self.subject+" | " +self.chapter

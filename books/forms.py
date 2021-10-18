@@ -1,6 +1,6 @@
 from django import forms  
 #from books.models import Book
-from books.models import Book ,Program # Faculty, Level, Semester, Program
+from books.models import Book ,Program , OldQuestion, HandsOut# Faculty, Level, Semester, Program
 
 '''class FacultyForm(forms.ModelForm):
 	class Meta:
@@ -55,3 +55,22 @@ class ProgramEditForm(forms.ModelForm):
 		fields="__all__"
 		
 
+class OldQuestionForm(forms.ModelForm):
+	class Meta:
+		model= OldQuestion
+		fields="__all__"
+
+class OldQuestionEditForm(forms.ModelForm):
+	class Meta:
+		model= OldQuestion
+		fields="__all__"
+
+class HandsOutForm(forms.ModelForm):
+	class Meta:
+		model=HandsOut
+		fields="__all__"
+
+class HandsOutEditForm(forms.ModelForm):
+	class Meta:
+		model=HandsOut
+		fields="__all__"
