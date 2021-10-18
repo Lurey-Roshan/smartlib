@@ -10,18 +10,16 @@ from books.forms import BookForm,EditBookForm,ProgramForm,ProgramEditForm,OldQue
 
 from PyPDF2 import PdfFileReader
 from django.http import FileResponse, Http404
-import os
-from django.conf import settings
-# Create your views here.
-import io
-from django.http import FileResponse
-from reportlab.pdfgen import canvas
+
+
 
 #new 
 from django.views import View
 from django.views.generic import ListView
 from books.filters import BookFilter,OldQuestionFilter,HandsOutFilter
 
+#for paginator
+from django.core.paginator import Paginator
 
 
 
@@ -40,6 +38,7 @@ def courses(request):
 	return render(request, 'assets/book/course.html',context)
 
 class BookListView(ListView):
+	paginate_by = 25
 	model=Book
 	template_name='assets/book/lib.html'
 	#template_name='books/book.html'
@@ -329,6 +328,7 @@ def create_oldquestion(request):
 	return render(request,'assets/book/createoldquestion.html',context)
 
 class OldQuestionListView(ListView):
+	paginate_by = 25
 	model=OldQuestion
 	template_name='assets/book/oldquestion.html'
 	
@@ -390,6 +390,7 @@ def create_handsout(request):
 
 
 class HandsOutListView(ListView):
+	paginate_by = 25
 	model=HandsOut
 	template_name='assets/book/handout.html'
 	
